@@ -1,4 +1,0 @@
-#include "QMath.h"
-
-
-
