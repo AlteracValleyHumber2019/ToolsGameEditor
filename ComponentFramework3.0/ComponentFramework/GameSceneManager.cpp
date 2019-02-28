@@ -61,6 +61,7 @@ void GameSceneManager::HandleEvents(){
 			case SDL_EventType::SDL_MOUSEBUTTONDOWN:
 			case SDL_EventType::SDL_MOUSEBUTTONUP:
 			case SDL_EventType::SDL_MOUSEMOTION:
+			case SDL_EventType::SDL_KEYDOWN:
 				assert(currentScene); 
 				currentScene->HandleEvents(SDLEvent);
 				break;

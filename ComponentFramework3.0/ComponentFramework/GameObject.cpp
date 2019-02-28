@@ -26,53 +26,55 @@ bool GameObject::OnCreate() {
 
 void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 {
-	SDL_Event event;
-	if (SDL_PollEvent(&event)) {
-		//printf("Calling SDL_PollEvent");
-		/*pos.x += 1;
-		MoveObject(pos);*/
-		printf("%d", event.type);
-		if (event.type == SDL_KEYDOWN) {
-			printf("Move RIGHT");
-			switch (event.key.keysym.sym) {
-			case SDLK_RIGHT:
-				pos.y += 1;
-				MoveObject(pos);
-				printf("Move RIGHT");
-				break;
-			case SDLK_LEFT:
-				pos.y -= 1;
-				MoveObject(pos);
-				break;
-			case SDLK_UP:
-				pos.x += 1;
-				MoveObject(pos);
-				break;
-			case SDLK_DOWN:
-				pos.x -= 1;
-				MoveObject(pos);
-				break;
-			case SDLK_w:
-				pos.z += 1;
-				MoveObject(pos);
-				break;
-			case SDLK_s:
-				pos.z -= 1;
-				MoveObject(pos);
-				break;
-			}
-		}
-	}
+	switch (SDLEvent.key.keysym.sym) {
+	case SDLK_RIGHT:
+		pos.x += 1;
+		MoveObject(pos);
+		printf("Move RIGHT");
+		//printf("%f", pos.x);
+		break;
+	case SDLK_LEFT:
+		pos.x -= 1;
+		MoveObject(pos);
+		printf("Move LEFT");
+		break;
+	case SDLK_UP:
+		pos.y += 1;
+		MoveObject(pos);
+		printf("Move UP");
+		break;
+	case SDLK_DOWN:
+		pos.y -= 1;
+		MoveObject(pos);
+		printf("Move DOWN");
+		break;
+	case SDLK_w:
+		pos.z += 1;
+		MoveObject(pos);
+		printf("Move FRONT");
+		break;
+	case SDLK_s:
+		pos.z -= 1;
+		MoveObject(pos);
+		printf("Move BACK");
+		break;
 
+	case SDLK_g:
+		RotateObject();
+		printf("rotate object");
+		break;
+	}
 }
 void GameObject::MoveObject(Vec3 pos_)
 {
-	pos += pos_;
+	pos = pos_;
 	modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
+	
 }
 void GameObject::RotateObject()
 {
-
+	/*modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
+	modelMatrix *= MMath::rotate(90, pos.x,pos.y,pos.z);*/
 }
 void GameObject::ScaleObject()
 {

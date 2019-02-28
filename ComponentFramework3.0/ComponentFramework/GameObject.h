@@ -35,8 +35,8 @@ namespace GAME {
 		GLint normalMatrixID;
 		GLint lightPosID;
 		Vec3 lightPos;
-
 		char* object;
+
 	};
 }
 #endif   GAMEOBJECT_H
