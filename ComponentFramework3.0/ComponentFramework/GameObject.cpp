@@ -20,65 +20,174 @@ bool GameObject::OnCreate() {
 	modelViewMatrixID = glGetUniformLocation(shader->getProgram(), "modelViewMatrix");
 	normalMatrixID = glGetUniformLocation(shader->getProgram(), "normalMatrix");
 	lightPosID = glGetUniformLocation(shader->getProgram(), "lightPos");
-	modelMatrix = MMath::translate(0.0f, 0.3f, 0.0f);
+	position = Vec3(0, 0, 0);
+	rotateAxis = Vec3(0, 0, 1);
+	scale = Vec3(1, 1, 1);
+	angle = 0;
+	modelMatrix = MMath::translate(position.x, position.y, position.z);
 	return true;
 }
 
 void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 {
 	switch (SDLEvent.key.keysym.sym) {
-	case SDLK_RIGHT:
-		pos.x += 1;
-		MoveObject(pos);
-		printf("Move RIGHT");
-		//printf("%f", pos.x);
-		break;
-	case SDLK_LEFT:
-		pos.x -= 1;
-		MoveObject(pos);
-		printf("Move LEFT");
-		break;
-	case SDLK_UP:
-		pos.y += 1;
-		MoveObject(pos);
-		printf("Move UP");
-		break;
-	case SDLK_DOWN:
-		pos.y -= 1;
-		MoveObject(pos);
-		printf("Move DOWN");
-		break;
-	case SDLK_w:
-		pos.z += 1;
-		MoveObject(pos);
-		printf("Move FRONT");
-		break;
-	case SDLK_s:
-		pos.z -= 1;
-		MoveObject(pos);
-		printf("Move BACK");
-		break;
 
-	case SDLK_g:
-		RotateObject();
-		printf("rotate object");
+	case SDLK_m:
+		st = Move;
 		break;
+	case SDLK_r:
+		st = Rotate;
+		break;
+	case SDLK_p:
+		st = Scale;
+		break;
+	case SDLK_RIGHT:
+		if(st == Move)
+		{
+			MoveObject(Vec3(1,0,0));
+			UpDateObject();
+			printf("Move RIGHT");
+			break;
+		}else if(st == Rotate)
+		{
+			RotateObject(-5, Vec3(0, 0, 1));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(1, 0, 0));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
+	case SDLK_LEFT:
+		if(st == Move)
+		{
+			MoveObject(Vec3(-1, 0, 0));
+			UpDateObject();
+			printf("Move LEFT");
+			break;
+		}else if (st == Rotate)
+		{
+			RotateObject(5, Vec3(0, 0, 1));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(-1, 0, 0));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
+	case SDLK_UP:
+		if(st == Move)
+		{
+			MoveObject(Vec3(0, 1, 0));
+			UpDateObject();
+			printf("Move UP");
+			break;
+		}else if(st == Rotate)
+		{
+			RotateObject(5, Vec3(0, 1, 0));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(0, 1, 0));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
+	case SDLK_DOWN:
+		if(st == Move)
+		{
+			MoveObject(Vec3(0, -1, 0));
+			UpDateObject();
+			printf("Move DOWN");
+			break;
+		}else if (st == Rotate)
+		{
+			RotateObject(-5, Vec3(0, 1, 0));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(0, -1, 0));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
+	case SDLK_j:
+		if(st == Move)
+		{
+			MoveObject(Vec3(0, 0, 1));
+			UpDateObject();
+			printf("Move FRONT");
+			break;
+		}else if (st == Rotate)
+		{
+			RotateObject(5, Vec3(1, 0, 0));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(0, 0, 1));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
+	case SDLK_u:
+		if(st == Move)
+		{
+			MoveObject(Vec3(0, 0, -1));
+			UpDateObject();
+			printf("Move BACK");
+			break;
+		}else if (st == Rotate)
+		{
+			RotateObject(-5, Vec3(1, 0, 0));
+			UpDateObject();
+			printf("rotate object");
+			break;
+		}
+		else if (st == Scale)
+		{
+			ScaleObject(Vec3(0, 0, -1));
+			UpDateObject();
+			printf("scale object");
+			break;
+		}
 	}
 }
 void GameObject::MoveObject(Vec3 pos_)
 {
-	pos = pos_;
-	modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
-	
+	position += pos_;
 }
-void GameObject::RotateObject()
+void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
-	/*modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
-	modelMatrix *= MMath::rotate(90, pos.x,pos.y,pos.z);*/
+	angle += angle_;
+	rotateAxis = roateAxix_;
 }
-void GameObject::ScaleObject()
+void GameObject::ScaleObject(Vec3 scale_)
 {
-
+	scale += scale_;
+}
+void GameObject::UpDateObject()
+{
+	modelMatrix = MMath::translate(0, 0, 0);
+	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
+	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
+	modelMatrix *= MMath::translate(position.x, position.y, position.z);
 }
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {

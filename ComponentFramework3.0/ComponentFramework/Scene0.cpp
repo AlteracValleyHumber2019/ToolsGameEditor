@@ -35,6 +35,7 @@ bool Scene0::OnCreate() {
 	gameobject = new GameObject("chair.obj");
 	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
+	sceneCamera = new Camera();
 	return true;
 }
 
@@ -42,9 +43,10 @@ bool Scene0::OnCreate() {
 void Scene0::OnResize(int w_, int h_){
 	windowPtr->SetWindowSize(w_,h_);
 	glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
-	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
-	
-	projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
+
+	//float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
+	//
+	//projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
 
 	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
 							   Vec3(0.0f, 0.0f, 0.0f), 
@@ -65,6 +67,12 @@ void Scene0::Update(const float deltaTime){
 }
 
 void Scene0::Render() const{
+
+	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
+
+	Matrix4 projectionMatrix = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
+	//Matrix4 viewMatrix = sceneCamera->GetViewMatrix();
+
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	gameobject->SetLightPos(viewMatrix * lightPos);
@@ -81,5 +89,31 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 		trackball->OnMouseMove(SDLEvent.button.x,SDLEvent.button.y);
 	}
 	*/
+
 	gameobject->HandleEvents(SDLEvent);
+}
+
+void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
+{
+	switch (SDLEvent.key.keysym.sym) {
+
+	case SDLK_w:
+		sceneCamera->ProcessKeyboard(CAMERA::FORWARD, deltaTime);
+		printf("Move FORWARD");
+		break;
+
+	case SDLK_s:
+		sceneCamera->ProcessKeyboard(CAMERA::BACKWARD, deltaTime);
+		printf("Move BACKWARD");
+		break;
+	case SDLK_a:
+		sceneCamera->ProcessKeyboard(CAMERA::LEFT, deltaTime);
+		printf("Move left");
+		break;
+
+	case SDLK_d:
+		sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
+		printf("Move RIGHT");
+			break;
+	}
 }

@@ -83,8 +83,6 @@ namespace  MATH {
 			m[3] =  0.0f;   m[7] = 0.0f;   m[11] = 0.0f;   m[15] = 1.0f;
 		}
 
-
-
 		/// Multiply two 4x4 matricies. 
 		/// Grrr, I never liked mulipling maticies - but it needs to be done. 
 		inline const Matrix4 operator*(const Matrix4& n) const {	

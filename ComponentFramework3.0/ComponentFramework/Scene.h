@@ -27,6 +27,7 @@ namespace GAME {
 		virtual void Render()const  = 0;
 		virtual void HandleEvents(const SDL_Event &SDLEvent) = 0;
 		virtual void OnResize(const int, const int) = 0;
+		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime) = 0;
 
 	protected:
 		Window* windowPtr;

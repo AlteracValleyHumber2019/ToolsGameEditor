@@ -28,11 +28,9 @@ GameSceneManager* GameSceneManager::getInstance(){
 	return instance.get();
 }
 
-
-
 void GameSceneManager::Run(){
 	isRunning = Initialize();  /// Initialize the window and setup OpenGL
-	Timer timer;
+	//Timer timer;
 	timer.Start();
 
 	/// This is now the master loop for the program
@@ -64,6 +62,7 @@ void GameSceneManager::HandleEvents(){
 			case SDL_EventType::SDL_KEYDOWN:
 				assert(currentScene); 
 				currentScene->HandleEvents(SDLEvent);
+				currentScene->processInput(SDLEvent, timer.GetDeltaTime());
 				break;
 			case SDL_WINDOWEVENT:
 				if(SDLEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){

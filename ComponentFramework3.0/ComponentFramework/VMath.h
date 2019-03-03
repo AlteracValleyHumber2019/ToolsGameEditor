@@ -4,6 +4,7 @@
 
 /// This is a library of Vec3 math routines. 
 #include "Vector.h"
+#include "Matrix.h"
 
 namespace MATH {
 	
@@ -64,7 +65,6 @@ namespace MATH {
 		/// Get the distance between a sphere and a plane
 		static float distance(const Sphere &s, const Plane &p);
 
-		
 	};
 
 }

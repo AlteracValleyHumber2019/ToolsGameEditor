@@ -3,6 +3,7 @@
 #include <thread>
 #include "Window.h"
 #include "Scene.h"
+#include "Timer.h"
 
 
 namespace GAME {
@@ -38,7 +39,7 @@ private:
 private: 
 	bool isRunning;
 	unsigned int frameRate; /// Frames / second
-
+	Timer timer;
 
 public:
 	static GameSceneManager* getInstance();
