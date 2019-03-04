@@ -21,6 +21,8 @@ protected:
 	Matrix4 modelMatrix;
 	Scene* parentScene;
 	std::vector<Mesh*> meshes;
+	//arifa did this
+	std::string ModelName;
 public:
 
 
@@ -41,6 +43,13 @@ public:
 	virtual void OnDestroy() = 0;
 	virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
 
+
+
+	//gets model name  //arifa did this
+	//inline std::string GetMOdelName()
+	//{
+	//	return ModelName;
+	//}
 
 	//void Update(const float deltaTime){
 	//	pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;

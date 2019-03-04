@@ -10,6 +10,10 @@ namespace GAME {
 	{
 	public:
 		GameObject(char* object_);
+		
+		//ModelName list  //arifa did this
+	/*	GameObject(std::string filePath_);*/
+
 		~GameObject();
 		void OnDestroy();
 		bool OnCreate();

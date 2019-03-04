@@ -7,11 +7,27 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 	object = object_;
 	OnCreate();
 }
+
+//arifa did this
+//GameObject::GameObject(std::string filePath_) {
+//	//gets file name 
+//	ModelName = filePath_;
+//	ObjLoader obj(filePath_.c_str());
+//}
+
+
 bool GameObject::OnCreate() {
 
 	GAME::ObjLoader obj(object);	
 
+
+
+
 	meshes.push_back(new Mesh(GL_TRIANGLES, obj.vertices, obj.normals, obj.uvCoords));
+
+
+
+
 
 	/// Create a shader with attributes
 	shader = new GAME::Shader("phongVert.glsl", "phongFrag.glsl", 3, 0, "vVertex", 1, "vNormal", 2, "texCoords");
