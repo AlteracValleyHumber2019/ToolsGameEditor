@@ -63,6 +63,7 @@ void GameSceneManager::HandleEvents(){
 				assert(currentScene); 
 				currentScene->HandleEvents(SDLEvent);
 				currentScene->processInput(SDLEvent, timer.GetDeltaTime());
+				currentScene->processMouseInput(SDLEvent);
 				break;
 			case SDL_WINDOWEVENT:
 				if(SDLEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED){

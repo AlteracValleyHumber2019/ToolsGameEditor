@@ -41,12 +41,12 @@ private:
 	void updateCameraVectors()
 	{
 		Vec3 _front;
-		_front.x = cos(yaw) * cos(pitch);
-		_front.y = sin(pitch);
-		_front.z = sin(yaw) * cos(pitch);
+		_front.x = cos(DEGREES_TO_RADIANS * yaw) * cos(DEGREES_TO_RADIANS * pitch);
+		_front.y = sin(DEGREES_TO_RADIANS * pitch);
+		_front.z = sin(DEGREES_TO_RADIANS * yaw) * cos(DEGREES_TO_RADIANS * pitch);
 		front = VMath::normalize(_front);
 		// re-calculate the right and up vectors
-		right = VMath::normalize(VMath::cross(right, worldUp));
+		right = VMath::normalize(VMath::cross(front, worldUp));
 		up = VMath::normalize(VMath::cross(right, front));
 	}
 

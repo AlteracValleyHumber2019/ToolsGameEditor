@@ -32,6 +32,7 @@ namespace GAME {
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
+		virtual void processMouseInput(const SDL_Event &SDLEvent);
 
 	private:
 		Vec3 lightPos;
@@ -39,7 +40,8 @@ namespace GAME {
 		Trackball *trackball;
 		GameObject* gameobject;
 		Camera* sceneCamera;
-	
+		bool firstMouse;
+		int lastX, lastY;
 	};
 }
 #endif
