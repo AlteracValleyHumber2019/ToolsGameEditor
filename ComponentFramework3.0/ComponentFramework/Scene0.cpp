@@ -24,7 +24,7 @@ Scene0::~Scene0(){
 }
 
 bool Scene0::OnCreate() {
-	OnResize(windowPtr->GetWidth(),windowPtr->GetHeight());
+	//OnResize(windowPtr->GetWidth(),windowPtr->GetHeight());
 
 	/// Load Assets: as needed 
 	/*lightPos = Vec3(10.0f, 3.0f, 10.0f);
@@ -32,25 +32,30 @@ bool Scene0::OnCreate() {
 	model0->SetVel(Vec3(0.0f,0.0f,0.0f));
 	model0->SetPos(Vec3(0.0f,0.0f,0.0f));*/
 
+	SDL_ShowCursor(SDL_DISABLE);
+	firstMouse = true;
 	gameobject = new GameObject("chair.obj");
 	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
-	sceneCamera = new Camera();
+	sceneCamera = new Camera(Vec3(0,0,5));
+
+	lastX = windowPtr->GetWidth() / 2;
+	lastY = windowPtr->GetHeight() / 2;
 	return true;
 }
 
 
 void Scene0::OnResize(int w_, int h_){
-	windowPtr->SetWindowSize(w_,h_);
-	glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
+	//windowPtr->SetWindowSize(w_,h_);
+	//glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
 
 	//float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 	//
 	//projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
 
-	viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
+	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
 							   Vec3(0.0f, 0.0f, 0.0f), 
-							   Vec3(0.0f, 1.0f, 0.0f));
+							   Vec3(0.0f, 1.0f, 0.0f));*/
 	
 }
 
@@ -70,13 +75,17 @@ void Scene0::Render() const{
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
-	Matrix4 projectionMatrix = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
-	//Matrix4 viewMatrix = sceneCamera->GetViewMatrix();
+	Matrix4 projectionMatrix_ = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
+	Matrix4 viewMatrix_ = sceneCamera->GetViewMatrix();
+
+	/*Matrix4 viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f),
+										Vec3(0.0f, 0.0f, 0.0f),
+										Vec3(0.0f, 1.0f, 0.0f));*/
 
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	gameobject->SetLightPos(viewMatrix * lightPos);
-	gameobject->Render(projectionMatrix , trackball->GetMatrix4() *  viewMatrix, trackball->GetMatrix3());
+	gameobject->SetLightPos(viewMatrix_ * lightPos);
+	gameobject->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
@@ -115,5 +124,33 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 		sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
 		printf("Move RIGHT");
 			break;
+	}
+}
+
+void Scene0::processMouseInput(const SDL_Event &SDLEvent)
+{
+	int _xPos, _yPos;
+	if (SDLEvent.type == SDL_MOUSEMOTION)
+	{
+		
+		SDL_GetMouseState(&_xPos, &_yPos);
+
+
+		//camera mouse movement
+		if (firstMouse)
+		{
+			lastX = _xPos;
+			lastY = _yPos;
+			firstMouse = false;
+		}
+
+		float xoffset = _xPos - lastX;
+		float yoffset = lastY - _yPos; // reversed since y-coordinates go from bottom to top
+
+		lastX = _xPos;
+		lastY = _yPos;
+
+		sceneCamera->ProcessMouseMovement(xoffset, yoffset);
+
 	}
 }

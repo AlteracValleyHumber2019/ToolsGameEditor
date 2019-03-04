@@ -21,6 +21,7 @@ bool GameObject::OnCreate() {
 	normalMatrixID = glGetUniformLocation(shader->getProgram(), "normalMatrix");
 	lightPosID = glGetUniformLocation(shader->getProgram(), "lightPos");
 	position = Vec3(0, 0, 0);
+	position = pos;
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;
