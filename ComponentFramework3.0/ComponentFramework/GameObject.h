@@ -12,7 +12,7 @@ namespace GAME {
 		GameObject(char* object_);
 		
 		//ModelName list  //arifa did this
-	/*	GameObject(std::string filePath_);*/
+		GameObject(std::string filePath_);
 
 		~GameObject();
 		void OnDestroy();

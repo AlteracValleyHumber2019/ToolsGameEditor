@@ -1,2 +1,2 @@
-INFO: Initializing the window and first scene ( d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gamescenemanager.cpp: 92)
-INFO: 1.13.0 ( d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\window.cpp: 66)
+INFO: Initializing the window and first scene ( c:\users\animefangirl\desktop\toolsgameeditor\componentframework3.0\componentframework\gamescenemanager.cpp: 92)
+INFO: 1.13.0 ( c:\users\animefangirl\desktop\toolsgameeditor\componentframework3.0\componentframework\window.cpp: 66)

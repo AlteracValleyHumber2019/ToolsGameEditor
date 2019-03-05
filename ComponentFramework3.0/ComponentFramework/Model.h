@@ -46,10 +46,10 @@ public:
 
 
 	//gets model name  //arifa did this
-	//inline std::string GetMOdelName()
-	//{
-	//	return ModelName;
-	//}
+	inline std::string GetMOdelName()
+	{
+		return ModelName;
+	}
 
 	//void Update(const float deltaTime){
 	//	pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;

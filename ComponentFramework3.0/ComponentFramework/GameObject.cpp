@@ -9,11 +9,11 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 }
 
 //arifa did this
-//GameObject::GameObject(std::string filePath_) {
-//	//gets file name 
-//	ModelName = filePath_;
-//	ObjLoader obj(filePath_.c_str());
-//}
+GameObject::GameObject(std::string filePath_) {
+	//gets file name 
+	ModelName = filePath_;
+	ObjLoader obj(filePath_.c_str());
+}
 
 
 bool GameObject::OnCreate() {
