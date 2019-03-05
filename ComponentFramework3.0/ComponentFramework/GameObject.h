@@ -24,6 +24,9 @@ namespace GAME {
 
 		void SetLightPos(const Vec3&);
 
+		//arifa needs work
+	/*	GameObject(std::string filePath_);*/
+
 	private:
 
 		void UpDateObject();

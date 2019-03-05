@@ -6,7 +6,8 @@
 #include "QuadSphere.h"
 #include "Model0.h"
 #include "Trackball.h"
-
+#include <fstream>
+#include <sstream>
 
 using namespace GAME;
 using namespace MATH;
@@ -69,6 +70,8 @@ void Scene0::OnDestroy(){
 
 void Scene0::Update(const float deltaTime){
 	//model0->Update(deltaTime);	
+	
+
 }
 
 void Scene0::Render() const{

@@ -7,6 +7,19 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 	object = object_;
 	OnCreate();
 }
+
+
+
+//arifa creates string of files 
+//GameObject::GameObject(std::string filePath_)
+//{
+//	ObjLoader obj(filePath_.c_str());
+//
+//	//gets file name 
+//	ModelName = filePath_;
+//}
+
+
 bool GameObject::OnCreate() {
 
 	GAME::ObjLoader obj(object);	

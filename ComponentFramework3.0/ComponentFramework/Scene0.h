@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "FileManager.h"
 
 namespace GAME {
 	/// Forward casting
@@ -33,6 +34,7 @@ namespace GAME {
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
+	
 
 	private:
 		Vec3 lightPos;
@@ -42,6 +44,9 @@ namespace GAME {
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;
+		
+		////arifa 
+		//std::vector<Model*> models;
 	};
 }
 #endif
