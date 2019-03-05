@@ -130,7 +130,7 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 {
 	int _xPos, _yPos;
-	if (SDLEvent.type == SDL_MOUSEMOTION)
+	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		
 		SDL_GetMouseState(&_xPos, &_yPos);
