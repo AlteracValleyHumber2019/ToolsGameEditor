@@ -49,7 +49,11 @@ void FileManager::OnWrite()
 void FileManager::OnRead()
 {
 	//reads file called Savedata.txt
+
 	std::ifstream inFile;
+
+	json j;
+	inFile >> j;
 	inFile.open("Savedata.txt");
 
 
