@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "vector"
 
 namespace GAME {
 	/// Forward casting
@@ -35,10 +36,13 @@ namespace GAME {
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
 
 	private:
+
+		void placeObjects(char*object_);
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		GameObject* gameobject;
+		//GameObject* gameobject;
+		std::vector<GameObject*> gameobjects;
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;

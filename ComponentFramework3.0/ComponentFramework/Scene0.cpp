@@ -32,11 +32,13 @@ bool Scene0::OnCreate() {
 	model0->SetVel(Vec3(0.0f,0.0f,0.0f));
 	model0->SetPos(Vec3(0.0f,0.0f,0.0f));*/
 
-	SDL_ShowCursor(SDL_DISABLE);
+	//SDL_ShowCursor(SDL_DISABLE);
 	firstMouse = true;
-	gameobject = new GameObject("chair.obj");
-	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
-	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
+
+	gameobjects.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
+	gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
+
+
 	sceneCamera = new Camera(Vec3(0,0,5));
 
 	lastX = windowPtr->GetWidth() / 2;
@@ -61,8 +63,13 @@ void Scene0::OnResize(int w_, int h_){
 
 void Scene0::OnDestroy(){
 	/// Cleanup Assets
-	if(gameobject) delete gameobject;
-	gameobject = nullptr;
+	for (auto object: gameobjects)
+	{
+		if (object) delete object;
+		object = nullptr;
+	}
+
+
 	if(trackball) delete trackball;
 	trackball = nullptr;
 }
@@ -84,8 +91,13 @@ void Scene0::Render() const{
 
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	gameobject->SetLightPos(viewMatrix_ * lightPos);
-	gameobject->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+
+	for (auto object : gameobjects)
+	{
+		object->SetLightPos(viewMatrix_ * lightPos);
+		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+	}
+
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
@@ -99,7 +111,10 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 	}
 	*/
 
-	gameobject->HandleEvents(SDLEvent);
+	for (auto object : gameobjects)
+	{
+		object->HandleEvents(SDLEvent);
+	}
 }
 
 void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
@@ -119,22 +134,35 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 		sceneCamera->ProcessKeyboard(CAMERA::LEFT, deltaTime);
 		printf("Move left");
 		break;
-
 	case SDLK_d:
 		sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
 		printf("Move RIGHT");
-			break;
+		break;
+	case SDLK_l:
+		placeObjects("chair.obj");
+		printf("Place Object");
+		break;
 	}
 }
+void Scene0::placeObjects(char*object_)
+{
 
+	// get the mouse x and y pos
+	int MouseXPos, MouseYPos;
+	SDL_GetMouseState(&MouseXPos, &MouseYPos);
+
+	std::cout << std::endl;
+	std::cout << "Mouse X: " << windowPtr->GetWidth() / MouseXPos << std::endl;
+	std::cout << "Mouse y: " << windowPtr->GetHeight() / MouseYPos << std::endl;
+	gameobjects.push_back(new GameObject(object_, Vec3(windowPtr->GetWidth() / MouseXPos, windowPtr->GetHeight() / MouseYPos, 1)));
+}
 void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 {
 	int _xPos, _yPos;
-	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
 		
 		SDL_GetMouseState(&_xPos, &_yPos);
-
 
 		//camera mouse movement
 		if (firstMouse)

@@ -7,6 +7,11 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 	object = object_;
 	OnCreate();
 }
+GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
+	object = object_;
+	pos = Ipos_;
+	OnCreate();
+}
 bool GameObject::OnCreate() {
 
 	GAME::ObjLoader obj(object);	
@@ -20,12 +25,12 @@ bool GameObject::OnCreate() {
 	modelViewMatrixID = glGetUniformLocation(shader->getProgram(), "modelViewMatrix");
 	normalMatrixID = glGetUniformLocation(shader->getProgram(), "normalMatrix");
 	lightPosID = glGetUniformLocation(shader->getProgram(), "lightPos");
-	position = Vec3(0, 0, 0);
-	position = pos;
+
+	//position = pos;
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;
-	modelMatrix = MMath::translate(position.x, position.y, position.z);
+	modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
 	return true;
 }
 
@@ -172,7 +177,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 }
 void GameObject::MoveObject(Vec3 pos_)
 {
-	position += pos_;
+	pos += pos_;
 }
 void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
@@ -188,7 +193,7 @@ void GameObject::UpDateObject()
 	modelMatrix = MMath::translate(0, 0, 0);
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
-	modelMatrix *= MMath::translate(position.x, position.y, position.z);
+	modelMatrix *= MMath::translate(pos.x, pos.y, pos.z);
 }
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {
