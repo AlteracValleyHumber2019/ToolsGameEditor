@@ -38,13 +38,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 {
 	switch (SDLEvent.key.keysym.sym) {
 
-	case SDLK_m:
+	case SDLK_y:
 		st = Move;
 		break;
-	case SDLK_r:
+	case SDLK_u:
 		st = Rotate;
 		break;
-	case SDLK_p:
+	case SDLK_i:
 		st = Scale;
 		break;
 	case SDLK_RIGHT:
@@ -131,7 +131,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			printf("scale object");
 			break;
 		}
-	case SDLK_j:
+	case SDLK_n:
 		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, 1));
@@ -152,7 +152,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			printf("scale object");
 			break;
 		}
-	case SDLK_u:
+	case SDLK_h:
 		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, -1));
@@ -199,7 +199,10 @@ void GameObject::UpDateObject()
 void GameObject::SetLightPos(const Vec3& lightPos_) {
 	lightPos = lightPos_;
 }
-
+bool GameObject::CheckCollisonSelection(int moseX_, int mouseY_)
+{
+	return false;
+}
 void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatrix, const Matrix3& normalMatrix) const
 {
 	glUseProgram(shader->getProgram());

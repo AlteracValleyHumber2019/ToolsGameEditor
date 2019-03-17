@@ -24,7 +24,8 @@ namespace GAME {
 		void ScaleObject(Vec3 scale_);
 
 		void SetLightPos(const Vec3&);
-
+		bool CheckCollisonSelection(int moseX_, int mouseY_);
+		bool ObjectSelected;
 	private:
 
 		void UpDateObject();
