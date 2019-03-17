@@ -31,12 +31,17 @@ namespace GAME {
 		virtual void Render() const;
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
+		
+		//arifa was here
+		GameObject* gameobject;
+
 
 	private:
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		GameObject* gameobject;
+
+
 	
 	};
 }

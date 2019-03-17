@@ -5,6 +5,7 @@
 #include <sstream>
 #include "GameObject.h"
 #include "ObjLoader.h"
+#include "Scene0.h"
 
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
@@ -16,6 +17,6 @@ public:
 	virtual void OnWrite();
 	virtual void OnRead();
 
-
+	GameObject* gameobject;
 };
 #endif
