@@ -1,8 +1,8 @@
 #ifndef  GAMEOBJECT_H
 #define GAMEOBJECT_H
+#include "Model.h"
 #include <SDL.h>
 #include "Vector.h"
-#include "Model.h"
 #include "shader.h"
 
 

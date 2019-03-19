@@ -4,7 +4,7 @@
 #include "MMath.h"
 #include "Mesh.h"
 #include "GameObject.h"
-
+#include "ObjLoader.h"
 
 using namespace MATH;
 

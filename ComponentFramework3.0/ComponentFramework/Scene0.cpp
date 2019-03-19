@@ -40,8 +40,8 @@ bool Scene0::OnCreate() {
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
 
 
-
-	// ModelObject.push_back(gameobject);
+	//arifa did this
+	 ScenceModelList.push_back(gameobject);
 
 	return true;
 }

@@ -23,6 +23,7 @@ public:
 
 
 	//arifa did this 
+	Scene0* CallScence;
 	GameObject* gameobject;
 	std::vector<Model*> ModelObjlist;
 

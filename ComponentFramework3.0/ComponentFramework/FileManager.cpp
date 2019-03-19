@@ -22,8 +22,12 @@ using namespace MATH;
 
 FileManager::FileManager()
 {
+	
+	//Scene0* S = CallScence;
+	
 
-	ModelObjlist.push_back(gameobject);
+	//ScenceModelList.push_back(gameobject);
+	ModelObjlist.push_back();
 }
 
 
@@ -78,7 +82,6 @@ void FileManager::OnRead()
 	json j;
 	inFile >> j;
 	inFile.open("Savedata.txt");
-
 
 
 	//make a structure of model have a pos , rot and name 

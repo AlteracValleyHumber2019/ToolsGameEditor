@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "ObjLoader.h"
+
 #include <stdio.h>
 using namespace GAME;
 
