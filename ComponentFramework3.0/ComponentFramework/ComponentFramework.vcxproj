@@ -70,6 +70,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -87,7 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="GameSceneManager.h" />
