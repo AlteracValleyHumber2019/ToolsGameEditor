@@ -13,8 +13,7 @@ using namespace MATH;
 
 FileManager::FileManager()
 {
-	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
-	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
+	
 	
 }
 
@@ -25,11 +24,11 @@ FileManager::~FileManager()
 
 void FileManager::OnWrite()
 {
-	for (int i = 0; i < gameobject.size(); i++)
+	/*for (int i = 0; i < gameobject.size(); i++)
 	{
 
 		gameobject[i]->Update(deltaTime);
-	}
+	}*/
 
 	/*
 
