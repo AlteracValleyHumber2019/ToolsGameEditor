@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include <iostream>
 #include "ObjLoader.h"
 #include <stdio.h>
 using namespace GAME;
@@ -18,6 +19,22 @@ bool GameObject::OnCreate() {
 
 	meshes.push_back(new Mesh(GL_TRIANGLES, obj.vertices, obj.normals, obj.uvCoords));
 
+	float tempX;
+
+	for (int i = 0; i < sizeof(obj.vertices) ; i++) {
+		if (i == 0) {
+			tempX = obj.vertices[i].x;
+		}
+		if (tempX >= obj.vertices[i].x) {
+			tempX = obj.vertices[i].x;
+		}
+		else {
+			minX.x = tempX;
+			std::cout << "min X = " << minX.x << std::endl;
+		}
+	}
+
+	ObjectSelected = true;
 	/// Create a shader with attributes
 	shader = new GAME::Shader("phongVert.glsl", "phongFrag.glsl", 3, 0, "vVertex", 1, "vNormal", 2, "texCoords");
 
@@ -36,142 +53,150 @@ bool GameObject::OnCreate() {
 
 void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 {
-	switch (SDLEvent.key.keysym.sym) {
+	if (ObjectSelected == true) {
+		switch (SDLEvent.key.keysym.sym) {
 
-	case SDLK_y:
-		st = Move;
-		break;
-	case SDLK_u:
-		st = Rotate;
-		break;
-	case SDLK_i:
-		st = Scale;
-		break;
-	case SDLK_RIGHT:
-		if(st == Move)
-		{
-			MoveObject(Vec3(1,0,0));
-			UpDateObject();
-			printf("Move RIGHT");
+		case SDLK_y:
+			st = Move;
 			break;
-		}else if(st == Rotate)
-		{
-			RotateObject(-5, Vec3(0, 0, 1));
-			UpDateObject();
-			printf("rotate object");
+		case SDLK_u:
+			st = Rotate;
 			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(1, 0, 0));
-			UpDateObject();
-			printf("scale object");
+		case SDLK_i:
+			st = Scale;
 			break;
-		}
-	case SDLK_LEFT:
-		if(st == Move)
-		{
-			MoveObject(Vec3(-1, 0, 0));
-			UpDateObject();
-			printf("Move LEFT");
-			break;
-		}else if (st == Rotate)
-		{
-			RotateObject(5, Vec3(0, 0, 1));
-			UpDateObject();
-			printf("rotate object");
-			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(-1, 0, 0));
-			UpDateObject();
-			printf("scale object");
-			break;
-		}
-	case SDLK_UP:
-		if(st == Move)
-		{
-			MoveObject(Vec3(0, 1, 0));
-			UpDateObject();
-			printf("Move UP");
-			break;
-		}else if(st == Rotate)
-		{
-			RotateObject(5, Vec3(0, 1, 0));
-			UpDateObject();
-			printf("rotate object");
-			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(0, 1, 0));
-			UpDateObject();
-			printf("scale object");
-			break;
-		}
-	case SDLK_DOWN:
-		if(st == Move)
-		{
-			MoveObject(Vec3(0, -1, 0));
-			UpDateObject();
-			printf("Move DOWN");
-			break;
-		}else if (st == Rotate)
-		{
-			RotateObject(-5, Vec3(0, 1, 0));
-			UpDateObject();
-			printf("rotate object");
-			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(0, -1, 0));
-			UpDateObject();
-			printf("scale object");
-			break;
-		}
-	case SDLK_n:
-		if(st == Move)
-		{
-			MoveObject(Vec3(0, 0, 1));
-			UpDateObject();
-			printf("Move FRONT");
-			break;
-		}else if (st == Rotate)
-		{
-			RotateObject(5, Vec3(1, 0, 0));
-			UpDateObject();
-			printf("rotate object");
-			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(0, 0, 1));
-			UpDateObject();
-			printf("scale object");
-			break;
-		}
-	case SDLK_h:
-		if(st == Move)
-		{
-			MoveObject(Vec3(0, 0, -1));
-			UpDateObject();
-			printf("Move BACK");
-			break;
-		}else if (st == Rotate)
-		{
-			RotateObject(-5, Vec3(1, 0, 0));
-			UpDateObject();
-			printf("rotate object");
-			break;
-		}
-		else if (st == Scale)
-		{
-			ScaleObject(Vec3(0, 0, -1));
-			UpDateObject();
-			printf("scale object");
-			break;
+		case SDLK_RIGHT:
+			if (st == Move)
+			{
+				MoveObject(Vec3(1, 0, 0));
+				UpDateObject();
+				printf("Move RIGHT");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(-5, Vec3(0, 0, 1));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(1, 0, 0));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
+		case SDLK_LEFT:
+			if (st == Move)
+			{
+				MoveObject(Vec3(-1, 0, 0));
+				UpDateObject();
+				printf("Move LEFT");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(5, Vec3(0, 0, 1));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(-1, 0, 0));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
+		case SDLK_UP:
+			if (st == Move)
+			{
+				MoveObject(Vec3(0, 1, 0));
+				UpDateObject();
+				printf("Move UP");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(5, Vec3(0, 1, 0));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(0, 1, 0));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
+		case SDLK_DOWN:
+			if (st == Move)
+			{
+				MoveObject(Vec3(0, -1, 0));
+				UpDateObject();
+				printf("Move DOWN");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(-5, Vec3(0, 1, 0));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(0, -1, 0));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
+		case SDLK_n:
+			if (st == Move)
+			{
+				MoveObject(Vec3(0, 0, 1));
+				UpDateObject();
+				printf("Move FRONT");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(5, Vec3(1, 0, 0));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(0, 0, 1));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
+		case SDLK_h:
+			if (st == Move)
+			{
+				MoveObject(Vec3(0, 0, -1));
+				UpDateObject();
+				printf("Move BACK");
+				break;
+			}
+			else if (st == Rotate)
+			{
+				RotateObject(-5, Vec3(1, 0, 0));
+				UpDateObject();
+				printf("rotate object");
+				break;
+			}
+			else if (st == Scale)
+			{
+				ScaleObject(Vec3(0, 0, -1));
+				UpDateObject();
+				printf("scale object");
+				break;
+			}
 		}
 	}
 }
@@ -201,6 +226,7 @@ void GameObject::SetLightPos(const Vec3& lightPos_) {
 }
 bool GameObject::CheckCollisonSelection(int moseX_, int mouseY_)
 {
+
 	return false;
 }
 void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatrix, const Matrix3& normalMatrix) const

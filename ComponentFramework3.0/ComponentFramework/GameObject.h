@@ -22,6 +22,7 @@ namespace GAME {
 		void MoveObject(Vec3 pos_);
 		void RotateObject(float angle_, Vec3 roateAxix);
 		void ScaleObject(Vec3 scale_);
+		void GetMin(ObjLoader obj);
 
 		void SetLightPos(const Vec3&);
 		bool CheckCollisonSelection(int moseX_, int mouseY_);
@@ -40,6 +41,8 @@ namespace GAME {
 		GLint modelViewMatrixID;
 		GLint normalMatrixID;
 		GLint lightPosID;
+		Vec3 minX;
+		Vec3 maxX;
 		Vec3 lightPos;
 		char* object;
 		//Vec3 position;
