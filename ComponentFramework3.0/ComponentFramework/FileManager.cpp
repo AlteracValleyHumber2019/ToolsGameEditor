@@ -3,9 +3,18 @@
 #include "json.hpp"
 #include <fstream>
 #include <iostream>
-#include "GameObject.h"
 #include "Scene0.h"
+#include "GameObject.h"
 
+/*
+
+the file manager  should have empty vector structer  what need to do is dependeding on the 
+situtation it will read and write or it will take a refernce from the into a file
+
+
+
+
+*/
 using json = nlohmann::json;
 
 using namespace GAME;
@@ -13,43 +22,51 @@ using namespace MATH;
 
 FileManager::FileManager()
 {
-	
-	
+
+	ModelObjlist.push_back(gameobject);
 }
 
 
 FileManager::~FileManager()
 {
+	
+
+	/*if (ModelObject.size() > 0)
+	{
+		for (auto m : ModelObject)
+		{
+			if (m)
+			{
+				delete m;
+			}
+			m = nullptr;
+		}
+		ModelObject.clear();
+		ModelObject.shrink_to_fit();
+	}*/
 }
 
 void FileManager::OnWrite()
 {
-	/*for (int i = 0; i < gameobject.size(); i++)
-	{
 
-		gameobject[i]->Update(deltaTime);
-	}*/
-
-	/*
-
-	gameobject->Update(deltaTime);
-	gameobject->Update(deltaTime);
 
 	std::ofstream info;
-	creates a file called Savedata.txt
+	//creates a file called Savedata.txt
 	info.open("Savedata.txt");
 
 
-	in this loop it will look though all the model we have then get the name pos , rot etc
-	for (int i = 0; i < gameobject.size(); i++)
+	//in this loop it will look though all the model we have then get the name pos , rot etc
+	for (int i = 0; i < ModelObjlist.size(); i++)
 	{
-		std::string Modelname = gameobject[i]->GetMOdelName();
+		std::string Modelname = ModelObjlist[i]->GetMOdelName();
 		info << "Model " << Modelname << std::endl;
-		info << "pos " << gameobject[i]->GetPos().x << " " << prim->getPos().y << std::endl;
-		info << "rot " << gameobject[i]->getAngle() << std::endl;
+		
+		///add getters
+		info << "pos " << ModelObjlist[i]->GetPos().x << " " << ModelObjlist[i]->GetPos().y << std::endl;
+		info << "rot " << ModelObjlist[i]->GetVel() << std::endl;
 	}
 
-	info.close();*/
+	info.close();
 }
 
 void FileManager::OnRead()

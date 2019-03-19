@@ -6,7 +6,7 @@
 #include "QuadSphere.h"
 #include "Model0.h"
 #include "Trackball.h"
-
+#include "FileManager.h"
 
 
 using namespace GAME;
@@ -18,6 +18,8 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) {
 	viewMatrix.loadIdentity();
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+
+
 }
 
 Scene0::~Scene0(){ 
@@ -36,6 +38,11 @@ bool Scene0::OnCreate() {
 	gameobject = new GameObject("chair.obj");
 	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
+
+
+
+	// ModelObject.push_back(gameobject);
+
 	return true;
 }
 
@@ -65,9 +72,10 @@ void Scene0::Update(const float deltaTime){
 	//model0->Update(deltaTime);	
 
 
-	//arifa did this
 	
 
+	
+	
 	
 
 }

@@ -17,6 +17,14 @@ public:
 	virtual void OnWrite();
 	virtual void OnRead();
 
+
+
+
+
+
+	//arifa did this 
 	GameObject* gameobject;
+	std::vector<Model*> ModelObjlist;
+
 };
 #endif

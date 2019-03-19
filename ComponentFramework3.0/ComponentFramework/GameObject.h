@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "shader.h"
 
+
 namespace GAME {
 	class GameObject : public Model
 	{
