@@ -4,6 +4,8 @@
 #include "Timer.h"
 #include "Scene0.h"
 #include <cassert>
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl.h"
 
 using namespace GAME;
 
@@ -52,6 +54,7 @@ void GameSceneManager::HandleEvents(){
 	SDL_Event SDLEvent;
 	
 	while (SDL_PollEvent(&SDLEvent)) {
+		ImGui_ImplSDL2_ProcessEvent(&SDLEvent);
 		switch (SDLEvent.type) {
 			case SDL_EventType::SDL_QUIT:
 				isRunning = false;
@@ -85,13 +88,14 @@ void GameSceneManager::Update(const float deltaTime) {
 void GameSceneManager::Render() const {
 	assert(currentScene); 
 	currentScene->Render();
+
 } 
 
 
 bool GameSceneManager::Initialize(){
 	Debug::Log(EMessageType::INFO, "Initializing the window and first scene" ,__FILE__, __LINE__);
 
-	windowInstance.SetWindowSize(1024, 740);
+	windowInstance.SetWindowSize(1280, 720);
 	bool status = windowInstance.OnCreate();
 	if( status == false){
 		Debug::Log(EMessageType::FATAL_ERROR, "Failed to initialize a Window and/or OpenGL",__FILE__, __LINE__);

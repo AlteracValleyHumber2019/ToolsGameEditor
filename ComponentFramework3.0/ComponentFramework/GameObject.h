@@ -23,10 +23,8 @@ namespace GAME {
 		void ScaleObject(Vec3 scale_);
 
 		void SetLightPos(const Vec3&);
-
-	private:
-
 		void UpDateObject();
+	private:
 		GAME::Shader *shader;
 		GLuint vbo;
 		GLuint vao;

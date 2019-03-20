@@ -6,10 +6,11 @@
 #include "QuadSphere.h"
 #include "Model0.h"
 #include "Trackball.h"
-
+#include <stdio.h>
 
 using namespace GAME;
 using namespace MATH;
+
 
 Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) { 
 	trackball = new Trackball();
@@ -17,6 +18,7 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) {
 	viewMatrix.loadIdentity();
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+
 }
 
 Scene0::~Scene0(){ 
@@ -41,6 +43,9 @@ bool Scene0::OnCreate() {
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
+
+	
+
 	return true;
 }
 
@@ -65,10 +70,65 @@ void Scene0::OnDestroy(){
 	gameobject = nullptr;
 	if(trackball) delete trackball;
 	trackball = nullptr;
+
+	//Clean Up ImGui
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
 }
 
 void Scene0::Update(const float deltaTime){
-	//model0->Update(deltaTime);	
+	//model0->Update(deltaTime);
+
+	bool show_demo_window = false;
+	bool show_another_window = false;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	static float f = 0.0f;
+	static int counter = 0;
+
+	// 1. ImGui window opens with newFrame
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplSDL2_NewFrame(windowPtr->getSDLWindow());
+	ImGui::NewFrame();
+	ImGui::Begin("Editor Menu");
+
+	// This is where I need to work around
+	// Testing Materials that I need to edit inside editor window
+	ImGui::Text("1: Object Manager %d", 0);
+	if (ImGui::Button("Save"))
+	{
+		
+		
+	}
+
+	ImGui::BulletText("Testing");
+	ImGui::SliderFloat("float", &f, 0.0f, 500.0f);
+
+	ImGui::Checkbox("Demo Window", &show_demo_window);
+	ImGui::Checkbox("Another Window", &show_another_window);
+	ImGui::ColorEdit3("Clear color", (float*)&clear_color);
+
+	if (ImGui::Button("Button"))
+		counter++;
+	ImGui::SameLine();
+	ImGui::Text("Counter = %d", counter);
+
+	// 2. This is another Simple window, let say I want to open separate character editor from main editor
+	// This should work with it.
+	if (!show_another_window) {
+		ImGui::Begin("Another Window", &show_another_window);
+		ImGui::Text("Hello Another window!");
+		if (ImGui::Button("Close Me"))
+			show_another_window = false;
+		ImGui::End();
+	}
+
+	// 3. Show the ImGui demo window.
+	if (!show_demo_window) {
+		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+		ImGui::ShowDemoWindow(&show_demo_window);
+	}
+
+	ImGui::End();
 }
 
 void Scene0::Render() const{
@@ -82,10 +142,13 @@ void Scene0::Render() const{
 										Vec3(0.0f, 0.0f, 0.0f),
 										Vec3(0.0f, 1.0f, 0.0f));*/
 
+	//ImGUI render
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	gameobject->SetLightPos(viewMatrix_ * lightPos);
 	gameobject->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
@@ -98,7 +161,6 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 		trackball->OnMouseMove(SDLEvent.button.x,SDLEvent.button.y);
 	}
 	*/
-
 	gameobject->HandleEvents(SDLEvent);
 }
 
@@ -130,7 +192,7 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 {
 	int _xPos, _yPos;
-	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
 		
 		SDL_GetMouseState(&_xPos, &_yPos);
@@ -153,4 +215,9 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 		sceneCamera->ProcessMouseMovement(xoffset, yoffset);
 
 	}
+}
+
+void Scene0::ImGui_ImplSDL2_ProcessEvent(const SDL_Event &SDLEvent) {
+
+	//gameobject->HandleEvents(SDLEvent);
 }

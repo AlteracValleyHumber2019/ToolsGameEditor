@@ -12,6 +12,7 @@ int main(int argc, char* argcs[]) {
 	static_assert(sizeof(void*) == 4, "This program is not ready for 64-bit build");
 
 
+
 	Debug::Init();
 	try{ 
 		GameSceneManager::getInstance()->Run();

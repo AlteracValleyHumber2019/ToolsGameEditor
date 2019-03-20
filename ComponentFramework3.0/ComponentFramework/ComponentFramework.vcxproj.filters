@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{576e55e6-a44f-448c-847e-d5c801b2ce7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\ImGui">
+      <UniqueIdentifier>{5651b7c2-d94d-4b9e-82cb-19e6915a8fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\glm">
+      <UniqueIdentifier>{25aa65c3-194e-4dc6-b930-fc697b890871}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp">
@@ -68,6 +74,24 @@
     </ClCompile>
     <ClCompile Include="GCamera.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
+      <Filter>Resource Files\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +151,30 @@
     </ClInclude>
     <ClInclude Include="GCamera.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_rectpack.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_textedit.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imstb_truetype.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_sdl.h">
+      <Filter>Resource Files\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
