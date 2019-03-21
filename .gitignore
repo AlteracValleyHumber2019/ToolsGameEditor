@@ -1,62 +1,34 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Visual studio generated folders
-Debug/
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/Browse.VC.opendb
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/Browse.VC.db
 ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/23e0a22108bea69e/FILEMANAGER.ipch
 ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/6b52ad906708a42d/SCENE0.ipch
 ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/709bb2a82ede6ffd/FILEMANGERR.ipch
 ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/7da9da495d553f88/GAMEOBJECT.ipch
 ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/b694b992c12774dd/SCENE.ipch
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj.filters
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/Browse.VC.db
-ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/6b52ad906708a42d/SCENE0.ipch
-ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/7da9da495d553f88/GAMEOBJECT.ipch
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj.filters
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/Browse.VC.db
-ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/6b52ad906708a42d/SCENE0.ipch
-ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/7da9da495d553f88/GAMEOBJECT.ipch
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj.filters
-ComponentFramework3.0/.vs/ComponentFramework/v15/.suo
-ComponentFramework3.0/.vs/ComponentFramework/v15/Browse.VC.db
-ComponentFramework3.0/ComponentFramework/ComponentFramework.vcxproj
+ComponentFramework3.0/.vs/ComponentFramework/v15/ipch/AutoPCH/da68401e48282e50/GAMESCENEMANAGER.ipch
+ComponentFramework3.0/ComponentFramework/Debug/Componen.F2DCB53B.tlog/CL.command.1.tlog
+ComponentFramework3.0/ComponentFramework/Debug/Componen.F2DCB53B.tlog/CL.read.1.tlog
+ComponentFramework3.0/ComponentFramework/Debug/Componen.F2DCB53B.tlog/CL.write.1.tlog
+ComponentFramework3.0/ComponentFramework/Debug/Componen.F2DCB53B.tlog/ComponentFramework.lastbuildstate
+ComponentFramework3.0/ComponentFramework/Debug/Componen.F2DCB53B.tlog/unsuccessfulbuild
+ComponentFramework3.0/ComponentFramework/Debug/ComponentFramework.log
+ComponentFramework3.0/ComponentFramework/Debug/Debug.obj
+ComponentFramework3.0/ComponentFramework/Debug/FileManager.obj
+ComponentFramework3.0/ComponentFramework/Debug/GameObject.obj
+ComponentFramework3.0/ComponentFramework/Debug/GameSceneManager.obj
+ComponentFramework3.0/ComponentFramework/Debug/Main.obj
+ComponentFramework3.0/ComponentFramework/Debug/Mesh.obj
+ComponentFramework3.0/ComponentFramework/Debug/MMath.obj
+ComponentFramework3.0/ComponentFramework/Debug/Model0.obj
+ComponentFramework3.0/ComponentFramework/Debug/ObjLoader.obj
+ComponentFramework3.0/ComponentFramework/Debug/Scene.obj
+ComponentFramework3.0/ComponentFramework/Debug/Scene0.obj
+ComponentFramework3.0/ComponentFramework/Debug/Shader.obj
+ComponentFramework3.0/ComponentFramework/Debug/Timer.obj
+ComponentFramework3.0/ComponentFramework/Debug/Trackball.obj
+ComponentFramework3.0/ComponentFramework/Debug/vc141.idb
+ComponentFramework3.0/ComponentFramework/Debug/vc141.pdb
+ComponentFramework3.0/ComponentFramework/Debug/VMath.obj
+ComponentFramework3.0/ComponentFramework/Debug/Window.obj
+ComponentFramework3.0/Debug/ComponentFramework.lib
+ComponentFramework3.0/Debug/glew32.dll
+ComponentFramework3.0/Debug/SDL2.dll
