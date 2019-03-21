@@ -27,23 +27,13 @@ protected:
 	std::string ModelName;
 	GameObject* gameobject;
 
+
+
 public:
 
 
 	inline void SetPos(const Vec3& pos_){ pos = pos_; }
 	inline void SetVel(const Vec3& vel_){ vel = vel_; }
-
-
-	//arifa did this
-	Vec3 Model::GetPos() const
-	{
-		return pos;
-	}
-
-	Vec3 Model::GetVel() const
-	{
-		return vel;
-	}
 
 	virtual ~Model(){};
 
@@ -56,27 +46,29 @@ public:
  
 
 	virtual bool OnCreate() = 0;
-
 	virtual void OnDestroy() = 0;
 	virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
 
 
-
-	//arifa did this 
-	//virtual	void Update(const float deltaTime) {
-	//	//pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;
-	//	//vel += gravity * deltaTime;
-	//	if (gameobject)
-	//	{
-	//		gameobject->g;
-	//		gameobject->RotateObject();
-	//	}
-	//}
-
-	//gets model name  //arifa did this
+	//gets model name  (arifa)
 	inline std::string GetMOdelName()
 	{
 		return ModelName;
+	}
+
+
+	//gets pos (arifa)
+	inline Vec3 GetPos()
+	{
+		return pos;
+
+	}
+
+	//gets pos (arifa)
+	inline Vec3 GetVel()
+	{
+		return vel;
+
 	}
 
 	//void Update(const float deltaTime){

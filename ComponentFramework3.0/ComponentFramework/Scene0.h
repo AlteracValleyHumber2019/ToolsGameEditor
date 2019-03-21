@@ -36,6 +36,10 @@ namespace GAME {
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
 	
 
+		//arifa was here
+		GameObject* gameobject;
+		std::vector<Model*> ScenceModelList;
+
 	private:
 		Vec3 lightPos;
 		Model0 *model0;
@@ -45,9 +49,8 @@ namespace GAME {
 		bool firstMouse;
 		int lastX, lastY;
 		
-		//arifa was here
-		GameObject* gameobject;
-		std::vector<Model*> ScenceModelList;
+		////arifa 
+		//std::vector<Model*> models;
 	};
 }
 #endif

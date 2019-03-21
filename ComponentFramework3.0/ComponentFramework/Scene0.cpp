@@ -42,6 +42,11 @@ bool Scene0::OnCreate() {
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
+
+
+	//arifa did this
+	ScenceModelList.push_back(gameobject);
+
 	return true;
 }
 

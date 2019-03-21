@@ -1,20 +1,17 @@
 #ifndef  GAMEOBJECT_H
 #define GAMEOBJECT_H
-#include "Model.h"
 #include <SDL.h>
 #include "Vector.h"
+#include "Model.h"
 #include "shader.h"
 
-
 namespace GAME {
+
 	class GameObject : public Model
 	{
+		enum stats { Move, Rotate, Scale };
 	public:
 		GameObject(char* object_);
-		
-		//ModelName list  //arifa did this
-		GameObject(std::string filePath_);
-
 		~GameObject();
 		void OnDestroy();
 		bool OnCreate();
@@ -22,12 +19,17 @@ namespace GAME {
 
 		void HandleEvents(const SDL_Event &SDLEvent);
 		void MoveObject(Vec3 pos_);
-		void RotateObject();
-		void ScaleObject();
+		void RotateObject(float angle_, Vec3 roateAxix);
+		void ScaleObject(Vec3 scale_);
 
 		void SetLightPos(const Vec3&);
+
+		//ModelName list  //arifa did this
+		GameObject(std::string filePath_);
+
 	private:
 
+		void UpDateObject();
 		GAME::Shader *shader;
 		GLuint vbo;
 		GLuint vao;
@@ -41,7 +43,12 @@ namespace GAME {
 		GLint lightPosID;
 		Vec3 lightPos;
 		char* object;
-
+		Vec3 position;
+		Vec3 rotatePosition;
+		float angle;
+		Vec3 rotateAxis;
+		Vec3 scale;
+		stats st;
 	};
 }
 #endif   GAMEOBJECT_H
