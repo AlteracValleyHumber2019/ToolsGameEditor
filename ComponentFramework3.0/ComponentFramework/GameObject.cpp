@@ -21,18 +21,9 @@ bool GameObject::OnCreate() {
 
 	float tempX;
 
-	for (int i = 0; i < sizeof(obj.vertices) ; i++) {
-		if (i == 0) {
-			tempX = obj.vertices[i].x;
-		}
-		if (tempX >= obj.vertices[i].x) {
-			tempX = obj.vertices[i].x;
-		}
-		else {
-			minX.x = tempX;
-			std::cout << "min X = " << minX.x << std::endl;
-		}
-	}
+	GetMin(obj.vertices);
+	
+	GetMax(obj.vertices);
 
 	ObjectSelected = true;
 	/// Create a shader with attributes
@@ -213,6 +204,36 @@ void GameObject::ScaleObject(Vec3 scale_)
 {
 	scale += scale_;
 }
+
+void GAME::GameObject::GetMin(std::vector<Vec3> verts)
+{
+	Vec3 min = verts[0];
+	
+
+	for (int i = 0; i < sizeof(verts); i++)
+	{
+		if (verts[i].x <= min.x) { min.x = verts[i].x; }
+		if (verts[i].y <= min.y) { min.y = verts[i].y; }
+		if (verts[i].z <= min.z) { min.z = verts[i].z; }
+		std::cout << "min = " << min.x << ": " << min.y << ": " << min.z << std::endl;
+	}
+}
+
+void GAME::GameObject::GetMax(std::vector<Vec3> Verts)
+{
+	Vec3 Max = Verts[0];
+
+
+	for (int i = 0; i < sizeof(Verts); i++)
+	{
+		if (Verts[i].x >= Max.x) { Max.x = Verts[i].x; }
+		if (Verts[i].y >= Max.y) { Max.y = Verts[i].y; }
+		if (Verts[i].z >= Max.z) { Max.z = Verts[i].z; }
+		std::cout << "min = " << Max.x << ": " << Max.y << ": " << Max.z << std::endl;
+	}
+}
+
+
 void GameObject::UpDateObject()
 {
 	modelMatrix = MMath::translate(0, 0, 0);

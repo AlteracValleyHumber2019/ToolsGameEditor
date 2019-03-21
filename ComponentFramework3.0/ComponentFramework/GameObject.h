@@ -22,7 +22,8 @@ namespace GAME {
 		void MoveObject(Vec3 pos_);
 		void RotateObject(float angle_, Vec3 roateAxix);
 		void ScaleObject(Vec3 scale_);
-		void GetMin(ObjLoader obj);
+		void GetMin(std::vector<Vec3> verts);
+		void GetMax(std::vector<Vec3> Verts);
 
 		void SetLightPos(const Vec3&);
 		bool CheckCollisonSelection(int moseX_, int mouseY_);
