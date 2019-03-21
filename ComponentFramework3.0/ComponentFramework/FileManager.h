@@ -1,19 +1,27 @@
+
+#include "Scene0.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "GameObject.h"
+#include "ObjLoader.h"
+
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
-#include "GameObject.h"
-
 class FileManager
 {
 public:
-//	FileManager(std::string filePath_);
-	virtual void OnSave();
-	virtual void OnLoad();
-	FileManager(std::string filePath_);
+	FileManager();
 	~FileManager();
-	
+	virtual void OnWrite();
+	virtual void OnRead();
 
-private:
-//	std::vector<GameObject*> models;
+
+
+	//arifa did this 
+	Scene0* CallScence;
+	GameObject* gameobject;
+	std::vector<Model*> ModelObjlist;
 
 };
 #endif

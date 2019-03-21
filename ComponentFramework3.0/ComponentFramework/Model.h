@@ -3,7 +3,8 @@
 #include <vector>
 #include "MMath.h"
 #include "Mesh.h"
-
+#include "GameObject.h"
+#include "ObjLoader.h"
 
 using namespace MATH;
 
@@ -22,15 +23,27 @@ protected:
 	Scene* parentScene;
 	std::vector<Mesh*> meshes;
 
-	////(arifa )
-	//std::string ModelName;
-
+	//arifa did this
+	std::string ModelName;
+	GameObject* gameobject;
 
 public:
 
 
 	inline void SetPos(const Vec3& pos_){ pos = pos_; }
 	inline void SetVel(const Vec3& vel_){ vel = vel_; }
+
+
+	//arifa did this
+	Vec3 Model::GetPos() const
+	{
+		return pos;
+	}
+
+	Vec3 Model::GetVel() const
+	{
+		return vel;
+	}
 
 	virtual ~Model(){};
 
@@ -43,29 +56,27 @@ public:
  
 
 	virtual bool OnCreate() = 0;
+
 	virtual void OnDestroy() = 0;
 	virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
 
 
-	//gets model name  (arifa)
-	//inline std::string GetMOdelName()
-	//{
-	//	return ModelName;
+
+	//arifa did this 
+	//virtual	void Update(const float deltaTime) {
+	//	//pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;
+	//	//vel += gravity * deltaTime;
+	//	if (gameobject)
+	//	{
+	//		gameobject->g;
+	//		gameobject->RotateObject();
+	//	}
 	//}
 
-
-	//gets pos (arifa)
-	inline Vec3 GetPos()
+	//gets model name  //arifa did this
+	inline std::string GetMOdelName()
 	{
-		return pos;
-
-	}
-
-	//gets pos (arifa)
-	inline Vec3 GetVel()
-	{
-		return vel;
-
+		return ModelName;
 	}
 
 	//void Update(const float deltaTime){

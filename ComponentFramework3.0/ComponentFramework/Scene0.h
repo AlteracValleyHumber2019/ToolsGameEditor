@@ -45,8 +45,9 @@ namespace GAME {
 		bool firstMouse;
 		int lastX, lastY;
 		
-		////arifa 
-		//std::vector<Model*> models;
+		//arifa was here
+		GameObject* gameobject;
+		std::vector<Model*> ScenceModelList;
 	};
 }
 #endif
