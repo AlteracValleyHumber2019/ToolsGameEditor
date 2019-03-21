@@ -8,7 +8,7 @@
 
 /*
 
-the file manager  should have empty vector structer  what need to do is dependeding on the 
+the file manager  should have empty vector structer  what need to do is dependeding on the
 situtation it will read and write or it will take a refernce from the into a file
 
 
@@ -22,18 +22,18 @@ using namespace MATH;
 
 FileManager::FileManager()
 {
-	
+
 	//Scene0* S = CallScence;
-	
+
 
 	//ScenceModelList.push_back(gameobject);
-	ModelObjlist.push_back();
+	//ModelObjlist.push_back();
 }
 
 
 FileManager::~FileManager()
 {
-	
+
 
 	/*if (ModelObject.size() > 0)
 	{
@@ -64,7 +64,7 @@ void FileManager::OnWrite()
 	{
 		std::string Modelname = ModelObjlist[i]->GetMOdelName();
 		info << "Model " << Modelname << std::endl;
-		
+
 		///add getters
 		info << "pos " << ModelObjlist[i]->GetPos().x << " " << ModelObjlist[i]->GetPos().y << std::endl;
 		info << "rot " << ModelObjlist[i]->GetVel() << std::endl;
