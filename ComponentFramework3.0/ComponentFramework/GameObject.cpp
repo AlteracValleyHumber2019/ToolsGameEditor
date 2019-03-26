@@ -20,9 +20,9 @@ bool GameObject::OnCreate() {
 	meshes.push_back(new Mesh(GL_TRIANGLES, obj.vertices, obj.normals, obj.uvCoords));
 
 	float tempX;
-
+	//get the min vertice in the created object
 	GetMin(obj.vertices);
-	
+	//get the max vertice in the created object
 	GetMax(obj.vertices);
 
 	ObjectSelected = true;
@@ -207,9 +207,11 @@ void GameObject::ScaleObject(Vec3 scale_)
 
 void GAME::GameObject::GetMin(std::vector<Vec3> verts)
 {
+
+	//create a vec based on the first vertice in the vector
 	Vec3 min = verts[0];
 	
-
+	//loop through the vector of vertices and compare them if they are less or equal to then the min now equals that vert.
 	for (int i = 0; i < sizeof(verts); i++)
 	{
 		if (verts[i].x <= min.x) { min.x = verts[i].x; }
@@ -221,9 +223,10 @@ void GAME::GameObject::GetMin(std::vector<Vec3> verts)
 
 void GAME::GameObject::GetMax(std::vector<Vec3> Verts)
 {
+	//create a vec based on the first vertice in the vector
 	Vec3 Max = Verts[0];
 
-
+	//loop through the vector of vertices and compare them if they are greater then or equal to then the Max now equals that vert.
 	for (int i = 0; i < sizeof(Verts); i++)
 	{
 		if (Verts[i].x >= Max.x) { Max.x = Verts[i].x; }

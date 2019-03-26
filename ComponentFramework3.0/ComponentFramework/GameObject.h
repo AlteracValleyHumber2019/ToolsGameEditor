@@ -22,6 +22,7 @@ namespace GAME {
 		void MoveObject(Vec3 pos_);
 		void RotateObject(float angle_, Vec3 roateAxix);
 		void ScaleObject(Vec3 scale_);
+		//get min and max verts in the mesh
 		void GetMin(std::vector<Vec3> verts);
 		void GetMax(std::vector<Vec3> Verts);
 
