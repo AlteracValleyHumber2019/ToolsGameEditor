@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "ObjLoader.h"
 #include <stdio.h>
+#include "FileManager.h"
 using namespace GAME;
 
 GameObject::GameObject(char*object_) :shader(nullptr) {
@@ -15,6 +16,7 @@ GameObject::GameObject(std::string filePath_) {
 	//gets file name 
 	ModelName = filePath_;
 	ObjLoader obj(filePath_.c_str());
+
 }
 
 
@@ -39,6 +41,8 @@ bool GameObject::OnCreate() {
 	angle = 0;
 	modelMatrix = MMath::translate(position.x, position.y, position.z);
 	return true;
+
+	
 }
 
 void GameObject::HandleEvents(const SDL_Event &SDLEvent)
@@ -191,7 +195,10 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 void GameObject::MoveObject(Vec3 pos_)
 {
 	position += pos_;
+
 }
+
+
 void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
 	angle += angle_;
@@ -207,7 +214,11 @@ void GameObject::UpDateObject()
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
 	modelMatrix *= MMath::translate(position.x, position.y, position.z);
+	FileManager manager;
+	manager.OnWrite();
+	manager.OnRead();
 }
+
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {
 	lightPos = lightPos_;

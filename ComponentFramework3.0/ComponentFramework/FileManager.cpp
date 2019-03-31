@@ -60,14 +60,33 @@ void FileManager::OnWrite()
 
 
 	//in this loop it will look though all the model we have then get the name pos , rot etc
+	//if (gameobject) 
+	//{
+	//	std::string Modelname = gameobject->GetMOdelName();
+	//	info << "Model " << Modelname << std::endl;
+
+	//	///add getters
+	//	info << "pos " << gameobject->position.x << " " << gameobject->position.y << std::endl;
+	//	info << "ang " << gameobject->angle << std::endl;
+	//	info << "rotP " << gameobject->rotatePosition << std::endl;
+	//	info << "rotA " << gameobject->rotateAxis << std::endl;
+	//	info << "scale " << gameobject->scale << std::endl;
+	//
+	//}
+	
 	for (int i = 0; i < ModelObjlist.size(); i++)
 	{
 		std::string Modelname = ModelObjlist[i]->GetMOdelName();
 		info << "Model " << Modelname << std::endl;
 
 		///add getters
-		info << "pos " << ModelObjlist[i]->GetPos().x << " " << ModelObjlist[i]->GetPos().y << std::endl;
-		info << "rot " << ModelObjlist[i]->GetVel() << std::endl;
+		/*info << "pos " << ModelObjlist[i]->GetPos().x << " " << ModelObjlist[i]->GetPos().y << std::endl;
+		info << "rot " << ModelObjlist[i]->GetVel() << std::endl;*/
+		info << "pos " << gameobject->position.x << " " << gameobject->position.y << std::endl;
+		info << "ang " << gameobject->angle << std::endl;
+		info << "rotP " << gameobject->rotatePosition << std::endl;
+		info << "rotA " << gameobject->rotateAxis << std::endl;
+		info << "scale " << gameobject->scale << std::endl;
 	}
 
 	info.close();
@@ -79,8 +98,8 @@ void FileManager::OnRead()
 
 	std::ifstream inFile;
 
-	json j;
-	inFile >> j;
+	/*json j;
+	inFile >> j;*/
 	inFile.open("Savedata.txt");
 
 
@@ -91,7 +110,7 @@ void FileManager::OnRead()
 		float posX;
 		float posY;
 		float angle;
-
+		float scale;
 	};
 
 	// vector model data (name ,pos, rot)

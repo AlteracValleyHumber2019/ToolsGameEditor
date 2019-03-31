@@ -37,7 +37,7 @@ namespace GAME {
 
 
 		//arifa was here
-		GameObject* gameobject;
+	/*	GameObject* gameobject;*/
 		std::vector<Model*> ScenceModelList;
 
 	private:

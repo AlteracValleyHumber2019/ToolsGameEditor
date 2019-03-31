@@ -57,19 +57,22 @@ namespace GAME {
 		}
 
 
-		//gets pos (arifa)
-		inline Vec3 GetPos()
-		{
-			return pos;
+	
 
-		}
 
 		//gets pos (arifa)
-		inline Vec3 GetVel()
-		{
-			return vel;
+		//inline Vec3 GetPos()
+		//{
+		//	return  gameobject->position;
 
-		}
+		//}
+
+		////gets pos (arifa)
+		//inline Vec3 GetScale()
+		//{
+		//	return gameobject->scale;
+
+		//}
 
 		//void Update(const float deltaTime){
 		//	pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;
@@ -82,3 +85,20 @@ namespace GAME {
 } /// end of namespace
 
 #endif
+
+
+
+
+/*	gets pos (arifa)
+		inline Vec3 GetPos()
+		{
+			return pos;
+
+		}
+
+		gets pos (arifa)
+		inline Vec3 GetVel()
+		{
+			return vel;
+
+		}*/

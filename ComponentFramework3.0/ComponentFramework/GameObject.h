@@ -26,6 +26,30 @@ namespace GAME {
 
 		//ModelName list  //arifa did this
 		GameObject(std::string filePath_);
+		Vec3 position;
+		Vec3 rotatePosition;
+		float angle;
+		Vec3 rotateAxis;
+		Vec3 scale;
+
+
+	//protected:
+	//
+
+
+	//	//gets pos (arifa)
+	//	inline Vec3 GetPosition()
+	//	{
+	//		return position;
+
+	//	}
+
+	//	//gets pos (arifa)
+	//	inline Vec3 GetScale()
+	//	{
+	//		return scale;
+
+	//	}
 
 	private:
 
@@ -43,12 +67,16 @@ namespace GAME {
 		GLint lightPosID;
 		Vec3 lightPos;
 		char* object;
-		Vec3 position;
-		Vec3 rotatePosition;
-		float angle;
-		Vec3 rotateAxis;
-		Vec3 scale;
+	
+
+
+
+
+
 		stats st;
+
+
+		
 	};
 }
 #endif   GAMEOBJECT_H
