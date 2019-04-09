@@ -7,6 +7,11 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 	object = object_;
 	OnCreate();
 }
+GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
+	object = object_;
+	pos = Ipos_;
+	OnCreate();
+}
 bool GameObject::OnCreate() {
 
 	GAME::ObjLoader obj(object);	
@@ -20,12 +25,12 @@ bool GameObject::OnCreate() {
 	modelViewMatrixID = glGetUniformLocation(shader->getProgram(), "modelViewMatrix");
 	normalMatrixID = glGetUniformLocation(shader->getProgram(), "normalMatrix");
 	lightPosID = glGetUniformLocation(shader->getProgram(), "lightPos");
-	position = Vec3(0, 0, 0);
-	position = pos;
+
+	//position = pos;
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;
-	modelMatrix = MMath::translate(position.x, position.y, position.z);
+	modelMatrix = MMath::translate(pos.x, pos.y, pos.z);
 	return true;
 }
 
@@ -33,13 +38,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 {
 	switch (SDLEvent.key.keysym.sym) {
 
-	case SDLK_m:
+	case SDLK_y:
 		st = Move;
 		break;
-	case SDLK_r:
+	case SDLK_u:
 		st = Rotate;
 		break;
-	case SDLK_p:
+	case SDLK_i:
 		st = Scale;
 		break;
 	case SDLK_RIGHT:
@@ -126,7 +131,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			printf("scale object");
 			break;
 		}
-	case SDLK_j:
+	case SDLK_n:
 		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, 1));
@@ -147,7 +152,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			printf("scale object");
 			break;
 		}
-	case SDLK_u:
+	case SDLK_h:
 		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, -1));
@@ -172,7 +177,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 }
 void GameObject::MoveObject(Vec3 pos_)
 {
-	position += pos_;
+	pos += pos_;
 }
 void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
@@ -188,13 +193,16 @@ void GameObject::UpDateObject()
 	modelMatrix = MMath::translate(0, 0, 0);
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
-	modelMatrix *= MMath::translate(position.x, position.y, position.z);
+	modelMatrix *= MMath::translate(pos.x, pos.y, pos.z);
 }
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {
 	lightPos = lightPos_;
 }
-
+bool GameObject::CheckCollisonSelection(int moseX_, int mouseY_)
+{
+	return false;
+}
 void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatrix, const Matrix3& normalMatrix) const
 {
 	glUseProgram(shader->getProgram());

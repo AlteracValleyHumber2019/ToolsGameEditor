@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "vector"
 
 namespace GAME {
 	/// Forward casting
@@ -13,7 +14,7 @@ namespace GAME {
 
 	class Scene0 : public Scene  {
 	protected:
-		
+		Matrix4 projectionMatrix_;
 	public:
 		explicit Scene0(Window& windowRef);
 		virtual ~Scene0();
@@ -28,20 +29,25 @@ namespace GAME {
 		virtual bool OnCreate() ;
 		virtual void OnDestroy();
 		virtual void Update(const float deltaTime);
-		virtual void Render() const;
+		virtual void Render();
 		virtual void HandleEvents(const SDL_Event &SDLEvent);
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
-
+		
 	private:
+		void placeObjects(char*object_);
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		GameObject* gameobject;
+		//GameObject* gameobject;
+		std::vector<GameObject*> gameobjects;
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;
+		Matrix4 viewMatrix_;
+		Vec3 getObjectLocation(float mouseX, float mouseY);
+		void ObjectSelection();
 	};
 }
 #endif

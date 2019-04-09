@@ -12,6 +12,7 @@ namespace GAME {
 		enum stats { Move, Rotate, Scale };
 	public:
 		GameObject(char* object_);
+		GameObject(char* object_, Vec3 Ipos_);
 		~GameObject();
 		void OnDestroy();
 		bool OnCreate();
@@ -23,6 +24,10 @@ namespace GAME {
 		void ScaleObject(Vec3 scale_);
 
 		void SetLightPos(const Vec3&);
+
+		bool CheckCollisonSelection(int moseX_, int mouseY_);
+		bool ObjectSelected;
+
 		void UpDateObject();
 	private:
 		GAME::Shader *shader;
@@ -38,7 +43,7 @@ namespace GAME {
 		GLint lightPosID;
 		Vec3 lightPos;
 		char* object;
-		Vec3 position;
+		//Vec3 position;
 		Vec3 rotatePosition;
 		float angle;
 		Vec3 rotateAxis;
