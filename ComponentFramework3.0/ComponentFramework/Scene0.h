@@ -33,7 +33,6 @@ namespace GAME {
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
-		virtual void ImGui_ImplSDL2_ProcessEvent(const SDL_Event &SDLEvent);
 
 	private:
 		Vec3 lightPos;

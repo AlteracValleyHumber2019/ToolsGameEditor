@@ -77,42 +77,137 @@ void Scene0::OnDestroy(){
 }
 
 void Scene0::Update(const float deltaTime){
-	//model0->Update(deltaTime);
 
-	static bool show_demo_window = true;
-	static bool show_another_window = true;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-	static float f = 0.0f;
-	static int counter = 0;
+	/// Declare boolean of checkbox variables
+	static bool show_control_window = false;
+	static bool show_another_window = false;
+	static bool show_demo_window = false;
 
-	// 1. ImGui window opens with newFrame
+	/// 1. ImGui window opens with newFrame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(windowPtr->getSDLWindow());
 	ImGui::NewFrame();
 	ImGui::Begin("Editor Menu");
 
-	// This is where I need to work around
-	// Testing Materials that I need to edit inside editor window
-	ImGui::Text("1: Object Manager %d", 0);
-	if (ImGui::Button("Save"))
-	{
-		
-		
-	}
-
-	ImGui::BulletText("Testing");
-	ImGui::SliderFloat("float", &f, 0.0f, 500.0f); //I need to replace with object translate inside instead of static float value
-
+	/// Checkbox features will open and close Window
+	ImGui::Checkbox("Control Window", &show_control_window);
 	ImGui::Checkbox("Demo Window", &show_demo_window);
-	ImGui::Checkbox("Another Window", &show_another_window);
-	ImGui::ColorEdit3("Clear color", (float*)&clear_color);
+	ImGui::Checkbox("Object Manager", &show_another_window);
 
-	if (ImGui::Button("Button"))
-		counter++;
-	ImGui::SameLine();
-	ImGui::Text("Counter = %d", counter);
+	// 1. This is control menu where you can move rotate object and camera 
+	if (show_control_window) {
+		if (!ImGui::Begin("Control Window", &show_control_window))
+		{
+			ImGui::End();
+		}
+		else {
+			// 2. Camera feature up, down, left, right
+			ImGui::Text("1: Viewport Camera");
+			ImGui::PushButtonRepeat(true); //This enables the button repeat 
 
-	// 2. This is another Simple window, let say I want to open separate character editor from main editor
+			if (ImGui::Button("Forward"))
+			{
+				sceneCamera->ProcessKeyboard(CAMERA::FORWARD, deltaTime);
+			}; ImGui::SameLine();
+
+			if (ImGui::Button("Back"))
+			{
+				sceneCamera->ProcessKeyboard(CAMERA::BACKWARD, deltaTime);
+			}; ImGui::SameLine();
+
+			if (ImGui::Button("Left"))
+			{
+				sceneCamera->ProcessKeyboard(CAMERA::LEFT, deltaTime);
+			}; ImGui::SameLine();
+
+			if (ImGui::Button("Right"))
+			{
+				sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
+			}
+
+			// 3. Object movement through Linear and Rotation plus Scale
+			ImGui::Text("2: Object Manipulation");
+			ImGui::BulletText("Linear Movement");
+			if (ImGui::Button("Left"))
+			{
+				gameobject->MoveObject(Vec3(-1, 0, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Right"))
+			{
+				gameobject->MoveObject(Vec3(1, 0, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Up"))
+			{
+				gameobject->MoveObject(Vec3(0, 1, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Down"))
+			{
+				gameobject->MoveObject(Vec3(0, -1, 0));
+				gameobject->UpDateObject();
+			}
+
+			// Rotate
+			ImGui::BulletText("Rotation");
+			if (ImGui::Button("Left"))
+			{
+				gameobject->RotateObject(5, Vec3(0, 0, 1));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Right"))
+			{
+				gameobject->RotateObject(-5, Vec3(0, 0, 1));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Up"))
+			{
+				gameobject->RotateObject(5, Vec3(0, 1, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Down"))
+			{
+				gameobject->RotateObject(-5, Vec3(0, 1, 0));
+				gameobject->UpDateObject();
+			}
+
+			// Scale
+			ImGui::BulletText("Scale Objects");
+			if (ImGui::Button("Left"))
+			{
+				gameobject->ScaleObject(Vec3(-1, 0, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Right"))
+			{
+				gameobject->ScaleObject(Vec3(1, 0, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Up"))
+			{
+				gameobject->ScaleObject(Vec3(0, 1, 0));
+				gameobject->UpDateObject();
+			} ImGui::SameLine();
+
+			if (ImGui::Button("Down"))
+			{
+				gameobject->ScaleObject(Vec3(0, -1, 0));
+				gameobject->UpDateObject();
+			}
+
+			ImGui::End();
+		}
+	}
+	/// 2. This is another Simple window, let say I want to open separate character editor from main editor
 	if (show_another_window) {
 		if (!ImGui::Begin("Another Window", &show_another_window))
 		{
@@ -128,12 +223,13 @@ void Scene0::Update(const float deltaTime){
 		}
 	}
 
-	// 3. Show the ImGui demo window.
+	/// 3. Show the ImGui demo window.
 	if (show_demo_window) {
 		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
 
+	/// ImGui End() - every features has to be before ImGui::End()
 	ImGui::End();
 }
 
@@ -148,7 +244,7 @@ void Scene0::Render() const{
 										Vec3(0.0f, 0.0f, 0.0f),
 										Vec3(0.0f, 1.0f, 0.0f));*/
 
-	//ImGUI render
+	/// ImGUI render
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	gameobject->SetLightPos(viewMatrix_ * lightPos);
@@ -158,41 +254,46 @@ void Scene0::Render() const{
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
+// Commented out because I implemented this feature at ImGui widget
+
 void Scene0::HandleEvents(const SDL_Event& SDLEvent){
-	/*if(SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN){
-		trackball->OnLeftMouseDown(SDLEvent.button.x,SDLEvent.button.y);
-	}
-	if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION && 
-		SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-		trackball->OnMouseMove(SDLEvent.button.x,SDLEvent.button.y);
-	}
-	*/
-	gameobject->HandleEvents(SDLEvent);
+	//if(SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN){
+	//	trackball->OnLeftMouseDown(SDLEvent.button.x,SDLEvent.button.y);
+	//}
+	//if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION && 
+	//	SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+	//	trackball->OnMouseMove(SDLEvent.button.x,SDLEvent.button.y);
+	//}
+	//
+	//gameobject->HandleEvents(SDLEvent);
 }
+
+
+// Commented out because I added this feature at ImGui widget
 
 void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 {
-	switch (SDLEvent.key.keysym.sym) {
+	//switch (SDLEvent.key.keysym.sym) {
 
-	case SDLK_w:
-		sceneCamera->ProcessKeyboard(CAMERA::FORWARD, deltaTime);
-		printf("Move FORWARD");
-		break;
+	//case SDLK_w:
+	//	sceneCamera->ProcessKeyboard(CAMERA::FORWARD, deltaTime);
+	//	printf("Move FORWARD");
+	//	break;
 
-	case SDLK_s:
-		sceneCamera->ProcessKeyboard(CAMERA::BACKWARD, deltaTime);
-		printf("Move BACKWARD");
-		break;
-	case SDLK_a:
-		sceneCamera->ProcessKeyboard(CAMERA::LEFT, deltaTime);
-		printf("Move left");
-		break;
+	//case SDLK_s:
+	//	sceneCamera->ProcessKeyboard(CAMERA::BACKWARD, deltaTime);
+	//	printf("Move BACKWARD");
+	//	break;
+	//case SDLK_a:
+	//	sceneCamera->ProcessKeyboard(CAMERA::LEFT, deltaTime);
+	//	printf("Move left");
+	//	break;
 
-	case SDLK_d:
-		sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
-		printf("Move RIGHT");
-			break;
-	}
+	//case SDLK_d:
+	//	sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
+	//	printf("Move RIGHT");
+	//		break;
+	//}
 }
 
 void Scene0::processMouseInput(const SDL_Event &SDLEvent)
@@ -219,11 +320,5 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 		lastY = _yPos;
 
 		sceneCamera->ProcessMouseMovement(xoffset, yoffset);
-
 	}
-}
-
-void Scene0::ImGui_ImplSDL2_ProcessEvent(const SDL_Event &SDLEvent) {
-
-	//gameobject->HandleEvents(SDLEvent);
 }
