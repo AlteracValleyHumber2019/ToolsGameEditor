@@ -50,6 +50,7 @@ bool Window::OnCreate() {
 		return false;
 	}
 
+
 	/// Fire up the GL Extension Wrangler
 	glewExperimental = GL_TRUE; 
 	GLenum glewError =  glewInit();
@@ -66,6 +67,14 @@ bool Window::OnCreate() {
 	Debug::Log(EMessageType::INFO, (char*)glewGetString(GLEW_VERSION), __FILE__, __LINE__);
 	
 	GetInstalledOpenGLInfo();
+
+	//Initialize ImGUI
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	auto io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplSDL2_InitForOpenGL(windowPtr, glContext);
+	ImGui_ImplOpenGL3_Init("#version 330 core");
 
 	isInitialized = true;
 	return true;

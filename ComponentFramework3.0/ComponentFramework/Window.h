@@ -2,6 +2,11 @@
 #define WINDOW_H
 
 #include "SDL.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl.h"
+#include "ImGui/imgui_impl_opengl3.h"
+#include "ImGui/imstb_textedit.h"
+#include "ImGui/imconfig.h"
 
 namespace GAME {
 	class Window {
