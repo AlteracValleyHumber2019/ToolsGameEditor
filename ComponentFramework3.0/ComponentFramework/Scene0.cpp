@@ -82,8 +82,8 @@ void Scene0::Render(){
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
-	projectionMatrix_ = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
-	viewMatrix_ = sceneCamera->GetViewMatrix();
+	//projectionMatrix_ = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
+	//viewMatrix_ = sceneCamera->GetViewMatrix();
 
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );

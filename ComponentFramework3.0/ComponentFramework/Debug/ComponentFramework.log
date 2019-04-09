@@ -1,7 +1,10 @@
 ﻿  Scene0.cpp
-c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(147): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(148): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  ComponentFramework.vcxproj -> C:\Users\Dong Hyeong Lee\Documents\GitHub\ToolsGameEditor\ComponentFramework3.0\Debug\ComponentFramework.exe
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(134): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(146): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(150): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(203): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\tybet\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(204): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  ComponentFramework.vcxproj -> C:\Users\tybet\Documents\GitHub\ToolsGameEditor\ComponentFramework3.0\Debug\ComponentFramework.exe
