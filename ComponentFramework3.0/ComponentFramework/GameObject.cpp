@@ -45,7 +45,7 @@ bool GameObject::OnCreate() {
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;
-	modelMatrix = GetCenter();
+	
 	return true;
 }
 
@@ -296,7 +296,7 @@ void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatr
 {
 	glUseProgram(shader->getProgram());
 	glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, projectionMatrix);
-	glUniformMatrix4fv(modelViewMatrixID, 1, GL_FALSE, viewMatrix * modelMatrix);
+	glUniformMatrix4fv(modelViewMatrixID, 1, GL_FALSE, modelMatrix * viewMatrix);
 	glUniformMatrix3fv(normalMatrixID, 1, GL_FALSE, normalMatrix);
 	glUniform3fv(lightPosID, 1, lightPos);
 	for (Mesh* mesh : meshes) {

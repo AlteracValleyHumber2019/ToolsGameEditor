@@ -12,7 +12,7 @@ using namespace GAME;
 using namespace MATH;
 
 Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) { 
-	trackball = new Trackball();
+	//trackball = new Trackball();
 	projectionMatrix.loadIdentity();
 	viewMatrix.loadIdentity();
 	glEnable(GL_DEPTH_TEST);
@@ -39,7 +39,7 @@ bool Scene0::OnCreate() {
 	gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
 
 
-	sceneCamera = new Camera(Vec3(0,0,5));
+	sceneCamera = new Camera(Vec3(0,0,0));
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
@@ -70,8 +70,8 @@ void Scene0::OnDestroy(){
 	}
 
 
-	if(trackball) delete trackball;
-	trackball = nullptr;
+	/*if(trackball) delete trackball;
+	trackball = nullptr;*/
 }
 
 void Scene0::Update(const float deltaTime){
@@ -82,8 +82,9 @@ void Scene0::Render(){
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
-	//projectionMatrix_ = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
-	//viewMatrix_ = sceneCamera->GetViewMatrix();
+	projectionMatrix_ = MMath::perspective(sceneCamera->GetZoom(), aspect, 0.1f, 100.0f);
+	viewMatrix_ = sceneCamera->GetViewMatrix();
+
 
 	/// Draw your scene here
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -91,7 +92,7 @@ void Scene0::Render(){
 	for (auto object : gameobjects)
 	{
 		object->SetLightPos(viewMatrix_ * lightPos);
-		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+		object->Render(projectionMatrix_, viewMatrix_, viewMatrix_);
 	}
 
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
@@ -187,11 +188,14 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 {
 	int _xPos, _yPos;
+	_xPos = T_xPos;
+	_yPos = T_yPos;
 	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
+	
 		
 		SDL_GetMouseState(&_xPos, &_yPos);
-
+		
 		//camera mouse movement
 		if (firstMouse)
 		{
@@ -206,7 +210,9 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 		lastX = _xPos;
 		lastY = _yPos;
 
-		sceneCamera->ProcessMouseMovement(xoffset, yoffset);
+		T_xPos = _xPos;
+		T_yPos = _yPos;
 
+		sceneCamera->ProcessMouseMovement(xoffset, yoffset);
 	}
 }

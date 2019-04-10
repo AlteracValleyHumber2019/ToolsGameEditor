@@ -48,6 +48,7 @@ namespace GAME {
 		Vec3 minX;
 		Vec3 maxX;
 		std::vector<Vec3> SelectBox;
+		Vec3 Temp_Rot;
 		Vec3 lightPos;
 		char* object;
 		//Vec3 position;

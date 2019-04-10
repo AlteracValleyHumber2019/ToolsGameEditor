@@ -39,7 +39,7 @@ namespace GAME {
 		void placeObjects(char*object_);
 		Vec3 lightPos;
 		Model0 *model0;
-		Trackball *trackball;
+		//Trackball *trackball;
 		//GameObject* gameobject;
 		std::vector<GameObject*> gameobjects;
 		Camera* sceneCamera;
@@ -48,6 +48,9 @@ namespace GAME {
 		Matrix4 viewMatrix_;
 		Vec3 getObjectLocation(float mouseX, float mouseY);
 		void ObjectSelection();
+
+
+		int T_xPos, T_yPos;
 	};
 }
 #endif
