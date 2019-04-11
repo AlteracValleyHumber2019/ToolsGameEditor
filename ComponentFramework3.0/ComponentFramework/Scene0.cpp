@@ -135,82 +135,84 @@ void Scene0::Update(const float deltaTime){
 			// 3. Object movement through Linear and Rotation plus Scale
 			ImGui::Text("2: Object Manipulation");
 			ImGui::BulletText("Linear Movement");
-			if (ImGui::Button("Left"))
+			for (auto objects : gameobjects)
 			{
-				gameobject->MoveObject(Vec3(-1, 0, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
+				if (ImGui::Button("Left"))
+				{
+					objects->MoveObject(Vec3(-1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
 
-			if (ImGui::Button("Right"))
-			{
-				gameobject->MoveObject(Vec3(1, 0, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
+				if (ImGui::Button("Right"))
+				{
+					objects->MoveObject(Vec3(1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
 
-			if (ImGui::Button("Up"))
-			{
-				gameobject->MoveObject(Vec3(0, 1, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
+				if (ImGui::Button("Up"))
+				{
+					objects->MoveObject(Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
 
-			if (ImGui::Button("Down"))
-			{
-				gameobject->MoveObject(Vec3(0, -1, 0));
-				gameobject->UpDateObject();
+				if (ImGui::Button("Down"))
+				{
+					objects->MoveObject(Vec3(0, -1, 0));
+					objects->UpDateObject();
+				}
+
+				// Rotate
+				ImGui::BulletText("Rotation");
+				if (ImGui::Button("Left"))
+				{
+					objects->RotateObject(5, Vec3(0, 0, 1));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Right"))
+				{
+					objects->RotateObject(-5, Vec3(0, 0, 1));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Up"))
+				{
+					objects->RotateObject(5, Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Down"))
+				{
+					objects->RotateObject(-5, Vec3(0, 1, 0));
+					objects->UpDateObject();
+				}
+
+				// Scale
+				ImGui::BulletText("Scale Objects");
+				if (ImGui::Button("Left"))
+				{
+					objects->ScaleObject(Vec3(-1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Right"))
+				{
+					objects->ScaleObject(Vec3(1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Up"))
+				{
+					objects->ScaleObject(Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Down"))
+				{
+					objects->ScaleObject(Vec3(0, -1, 0));
+					objects->UpDateObject();
+				}
 			}
-
-			// Rotate
-			ImGui::BulletText("Rotation");
-			if (ImGui::Button("Left"))
-			{
-				gameobject->RotateObject(5, Vec3(0, 0, 1));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Right"))
-			{
-				gameobject->RotateObject(-5, Vec3(0, 0, 1));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Up"))
-			{
-				gameobject->RotateObject(5, Vec3(0, 1, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Down"))
-			{
-				gameobject->RotateObject(-5, Vec3(0, 1, 0));
-				gameobject->UpDateObject();
-			}
-
-			// Scale
-			ImGui::BulletText("Scale Objects");
-			if (ImGui::Button("Left"))
-			{
-				gameobject->ScaleObject(Vec3(-1, 0, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Right"))
-			{
-				gameobject->ScaleObject(Vec3(1, 0, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Up"))
-			{
-				gameobject->ScaleObject(Vec3(0, 1, 0));
-				gameobject->UpDateObject();
-			} ImGui::SameLine();
-
-			if (ImGui::Button("Down"))
-			{
-				gameobject->ScaleObject(Vec3(0, -1, 0));
-				gameobject->UpDateObject();
-			}
-
 			ImGui::End();
 		}
 	}
@@ -259,7 +261,7 @@ void Scene0::Render(){
   
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-  SDL_GL_SwapWindow(windowPtr->getSDLWindow());
+    SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 
 }
 void Scene0::ObjectSelection()

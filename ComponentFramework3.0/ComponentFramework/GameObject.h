@@ -22,14 +22,21 @@ namespace GAME {
 		void MoveObject(Vec3 pos_);
 		void RotateObject(float angle_, Vec3 roateAxix);
 		void ScaleObject(Vec3 scale_);
+		//get min and max verts in the mesh
+		void GetMin(std::vector<Vec3> verts);
+		void GetMax(std::vector<Vec3> Verts);
+		void MakeSelectBox();
+		Matrix4 GetCenter();
+
+
 
 		void SetLightPos(const Vec3&);
-
 		bool CheckCollisonSelection(int moseX_, int mouseY_);
 		bool ObjectSelected;
-
 		void UpDateObject();
+		
 	private:
+		
 		GAME::Shader *shader;
 		GLuint vbo;
 		GLuint vao;
@@ -41,6 +48,9 @@ namespace GAME {
 		GLint modelViewMatrixID;
 		GLint normalMatrixID;
 		GLint lightPosID;
+		Vec3 minX;
+		Vec3 maxX;
+		std::vector<Vec3> SelectBox;
 		Vec3 lightPos;
 		char* object;
 		//Vec3 position;
