@@ -13,12 +13,14 @@ int main(int argc, char* argcs[]) {
 
 
 	Debug::Init();
-	try{ 
+	try {
 		GameSceneManager::getInstance()->Run();
-	}catch(std::string fatalError){
+	}
+	catch (std::string fatalError) {
 		std::cout << "Fatal error: " << fatalError << std::endl;
-	}catch(...) {
+	}
+	catch (...) {
 		std::cout << "Unknown Fatal error: " << std::endl;
-	} 
+	}
 	exit(0);
 }

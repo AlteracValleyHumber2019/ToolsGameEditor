@@ -3,7 +3,6 @@
 #include <vector>
 #include "MMath.h"
 #include "Mesh.h"
-#include "GameObject.h"
 #include "ObjLoader.h"
 
 using namespace MATH;
@@ -14,8 +13,8 @@ namespace GAME {
 
 	class Model {
 	protected:
-		Vec3 pos;
-		Vec3 vel;
+		//Vec3 pos;
+		//Vec3 vel;
 		Vec3 orientation;
 		Vec3 gravity;
 		Sphere bounding;
@@ -25,15 +24,15 @@ namespace GAME {
 
 		//arifa did this
 		std::string ModelName;
-		GameObject* gameobject;
+		//GameObject* gameobject;
 
 
 
 	public:
 
 
-		inline void SetPos(const Vec3& pos_) { pos = pos_; }
-		inline void SetVel(const Vec3& vel_) { vel = vel_; }
+		/*inline void SetPos(const Vec3& pos_){ pos = pos_; }
+		inline void SetVel(const Vec3& vel_){ vel = vel_; }*/
 
 		virtual ~Model() {};
 
@@ -57,22 +56,7 @@ namespace GAME {
 		}
 
 
-	
 
-
-		//gets pos (arifa)
-		//inline Vec3 GetPos()
-		//{
-		//	return  gameobject->position;
-
-		//}
-
-		////gets pos (arifa)
-		//inline Vec3 GetScale()
-		//{
-		//	return gameobject->scale;
-
-		//}
 
 		//void Update(const float deltaTime){
 		//	pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;
@@ -85,20 +69,3 @@ namespace GAME {
 } /// end of namespace
 
 #endif
-
-
-
-
-/*	gets pos (arifa)
-		inline Vec3 GetPos()
-		{
-			return pos;
-
-		}
-
-		gets pos (arifa)
-		inline Vec3 GetVel()
-		{
-			return vel;
-
-		}*/

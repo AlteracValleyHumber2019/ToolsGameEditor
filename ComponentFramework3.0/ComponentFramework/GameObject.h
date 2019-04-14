@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "shader.h"
 
+
 namespace GAME {
 
 	class GameObject : public Model
@@ -26,30 +27,80 @@ namespace GAME {
 
 		//ModelName list  //arifa did this
 		GameObject(std::string filePath_);
-		Vec3 position;
-		Vec3 rotatePosition;
-		float angle;
-		Vec3 rotateAxis;
-		Vec3 scale;
 
 
-	//protected:
-	//
+
+		//gets pos (arifa)
+		inline Vec3 GetPos()
+		{
+
+			return position;
+
+		}
 
 
-	//	//gets pos (arifa)
-	//	inline Vec3 GetPosition()
-	//	{
-	//		return position;
+		inline void SetPos(Vec3 pos_)
+		{
+			position = pos_;
+			UpDateObject();
+		}
 
-	//	}
 
-	//	//gets pos (arifa)
-	//	inline Vec3 GetScale()
-	//	{
-	//		return scale;
+		//gets pos (arifa)
+		inline float Getangle()
+		{
+			return angle;
 
-	//	}
+		}
+
+		inline void Setangle(float angle_)
+		{
+			angle = angle_;
+			UpDateObject();
+		}
+
+
+		inline Vec3 GetScale()
+		{
+			return scale;
+
+		}
+
+
+		inline void SetScale(Vec3 Scale_)
+		{
+			scale = Scale_;
+			UpDateObject();
+		}
+
+
+		inline Vec3 GetRotateAxis()
+		{
+			return rotateAxis;
+
+		}
+
+
+		inline void SetRotateAxis(Vec3 RotateAxis_)
+		{
+			rotateAxis = RotateAxis_;
+			UpDateObject();
+		}
+
+
+		inline Vec3 GetrotatePosition()
+		{
+			return rotatePosition;
+
+		}
+
+
+		inline void SetrotatePosition(Vec3 rotatePosition_)
+		{
+			rotatePosition = rotatePosition_;
+			UpDateObject();
+		}
+
 
 	private:
 
@@ -66,17 +117,19 @@ namespace GAME {
 		GLint normalMatrixID;
 		GLint lightPosID;
 		Vec3 lightPos;
-		char* object;
-	
-
-
-
-
-
+		/*char* object;*/
+		Vec3 position;
+		Vec3 rotatePosition;
+		float angle;
+		Vec3 rotateAxis;
+		Vec3 scale;
 		stats st;
 
 
-		
+
+
+
+
 	};
 }
 #endif   GAMEOBJECT_H

@@ -1,11 +1,12 @@
 #include "GameObject.h"
 #include "ObjLoader.h"
-#include <stdio.h>
 #include "FileManager.h"
+#include "JSONFile.h"
+#include <stdio.h>
 using namespace GAME;
 
 GameObject::GameObject(char*object_) :shader(nullptr) {
-	object = object_;
+	ModelName = object_;
 	OnCreate();
 }
 
@@ -15,15 +16,15 @@ GameObject::GameObject(char*object_) :shader(nullptr) {
 GameObject::GameObject(std::string filePath_) {
 	//gets file name 
 	ModelName = filePath_;
-	ObjLoader obj(filePath_.c_str());
 
+	OnCreate();
 }
 
 
 
 bool GameObject::OnCreate() {
 
-	GAME::ObjLoader obj(object);
+	GAME::ObjLoader obj(ModelName.c_str());
 
 	meshes.push_back(new Mesh(GL_TRIANGLES, obj.vertices, obj.normals, obj.uvCoords));
 
@@ -35,14 +36,12 @@ bool GameObject::OnCreate() {
 	normalMatrixID = glGetUniformLocation(shader->getProgram(), "normalMatrix");
 	lightPosID = glGetUniformLocation(shader->getProgram(), "lightPos");
 	position = Vec3(0, 0, 0);
-	position = pos;
+	//position = pos;
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;
 	modelMatrix = MMath::translate(position.x, position.y, position.z);
 	return true;
-
-	
 }
 
 void GameObject::HandleEvents(const SDL_Event &SDLEvent)
@@ -195,10 +194,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 void GameObject::MoveObject(Vec3 pos_)
 {
 	position += pos_;
-
 }
-
-
 void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
 	angle += angle_;
@@ -210,14 +206,15 @@ void GameObject::ScaleObject(Vec3 scale_)
 }
 void GameObject::UpDateObject()
 {
+
 	modelMatrix = MMath::translate(0, 0, 0);
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
 	modelMatrix *= MMath::translate(position.x, position.y, position.z);
-	FileManager manager;
-	manager.OnWrite();
-	manager.OnRead();
+
 }
+
+
 
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {

@@ -36,7 +36,7 @@ bool Scene0::OnCreate() {
 	SDL_ShowCursor(SDL_DISABLE);
 	firstMouse = true;
 	gameobject = new GameObject("chair.obj");
-	gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
+	//gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
 	sceneCamera = new Camera(Vec3(0, 0, 5));
 
@@ -46,6 +46,8 @@ bool Scene0::OnCreate() {
 
 	//arifa did this
 	ScenceModelList.push_back(gameobject);
+
+	myOBJs[""].push_back(gameobject);
 
 	return true;
 }
@@ -75,7 +77,13 @@ void Scene0::OnDestroy() {
 
 void Scene0::Update(const float deltaTime) {
 	//model0->Update(deltaTime);	
+	//FileManager manager;
+	//manager.OnWrite(ScenceModelList);
 
+	//for (GameObject* go : ScenceModelList) {
+	//	//JSONFile manager;
+	//	//manager.OnWrite(ScenceModelList);
+	//}
 
 }
 
@@ -92,8 +100,13 @@ void Scene0::Render() const {
 
 										/// Draw your scene here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	gameobject->SetLightPos(viewMatrix_ * lightPos);
-	gameobject->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+
+
+	for (GameObject* go : ScenceModelList) {
+		go->SetLightPos(viewMatrix_ * lightPos);
+		go->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+	}
+
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
@@ -107,7 +120,29 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
 	}
 	*/
 
-	gameobject->HandleEvents(SDLEvent);
+	if (SDLEvent.key.keysym.sym == SDLK_5)
+	{
+
+		JSONFile manager;
+		manager.OnWrite(ScenceModelList);
+	}
+	else if (SDLEvent.key.keysym.sym == SDLK_4)
+	{
+		for (GameObject* object : ScenceModelList)
+		{
+			delete object;
+			object = nullptr;
+		}
+
+		ScenceModelList.clear();
+		JSONFile manager;
+		ScenceModelList = manager.OnRead();
+
+	}
+
+	for (GameObject* go : ScenceModelList) {
+		go->HandleEvents(SDLEvent);
+	}
 }
 
 void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)

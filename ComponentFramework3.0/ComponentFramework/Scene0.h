@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "FileManager.h"
-
+#include "JSONFile.h"
 namespace GAME {
 	/// Forward casting
 	class Trackball;
@@ -37,14 +37,14 @@ namespace GAME {
 
 
 		//arifa was here
-	/*	GameObject* gameobject;*/
-		std::vector<Model*> ScenceModelList;
+		GameObject* gameobject;
+		std::vector<GameObject*> ScenceModelList;
+		std::map<std::string, std::vector<GameObject*>> myOBJs;
 
 	private:
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		GameObject* gameobject;
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;

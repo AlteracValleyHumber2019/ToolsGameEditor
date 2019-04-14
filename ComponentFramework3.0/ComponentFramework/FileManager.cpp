@@ -23,34 +23,15 @@ using namespace MATH;
 FileManager::FileManager()
 {
 
-	//Scene0* S = CallScence;
-
-
-	//ScenceModelList.push_back(gameobject);
-	//ModelObjlist.push_back();
 }
 
 
 FileManager::~FileManager()
 {
 
-
-	/*if (ModelObject.size() > 0)
-	{
-		for (auto m : ModelObject)
-		{
-			if (m)
-			{
-				delete m;
-			}
-			m = nullptr;
-		}
-		ModelObject.clear();
-		ModelObject.shrink_to_fit();
-	}*/
 }
 
-void FileManager::OnWrite()
+void FileManager::OnWrite(std::vector<GameObject*> ScenceModelList)
 {
 
 
@@ -60,35 +41,20 @@ void FileManager::OnWrite()
 
 
 	//in this loop it will look though all the model we have then get the name pos , rot etc
-	//if (gameobject) 
-	//{
-	//	std::string Modelname = gameobject->GetMOdelName();
-	//	info << "Model " << Modelname << std::endl;
-
-	//	///add getters
-	//	info << "pos " << gameobject->position.x << " " << gameobject->position.y << std::endl;
-	//	info << "ang " << gameobject->angle << std::endl;
-	//	info << "rotP " << gameobject->rotatePosition << std::endl;
-	//	info << "rotA " << gameobject->rotateAxis << std::endl;
-	//	info << "scale " << gameobject->scale << std::endl;
-	//
-	//}
-	
-	for (int i = 0; i < ModelObjlist.size(); i++)
+	for (int i = 0; i < ScenceModelList.size(); i++)
 	{
-		std::string Modelname = ModelObjlist[i]->GetMOdelName();
+		std::string Modelname = ScenceModelList[i]->GetMOdelName();
 		info << "Model " << Modelname << std::endl;
 
 		///add getters
-		/*info << "pos " << ModelObjlist[i]->GetPos().x << " " << ModelObjlist[i]->GetPos().y << std::endl;
-		info << "rot " << ModelObjlist[i]->GetVel() << std::endl;*/
-		info << "pos " << gameobject->position.x << " " << gameobject->position.y << std::endl;
-		info << "ang " << gameobject->angle << std::endl;
-		info << "rotP " << gameobject->rotatePosition << std::endl;
-		info << "rotA " << gameobject->rotateAxis << std::endl;
-		info << "scale " << gameobject->scale << std::endl;
+		info << "pos " << ScenceModelList[i]->GetPos().x << " " << ScenceModelList[i]->GetPos().y << std::endl;
+		info << "angle " << ScenceModelList[i]->Getangle() << std::endl;
+		info << "RotateAxis " << ScenceModelList[i]->GetRotateAxis().x << " " << ScenceModelList[i]->GetRotateAxis().y << std::endl;
+		info << "rotatePosition " << ScenceModelList[i]->GetrotatePosition().x << " " << ScenceModelList[i]->GetrotatePosition().y << std::endl;
+		info << "Scale " << ScenceModelList[i]->GetScale().x << " " << ScenceModelList[i]->GetScale().y << std::endl;
 	}
 
+	OnRead();
 	info.close();
 }
 
@@ -98,8 +64,8 @@ void FileManager::OnRead()
 
 	std::ifstream inFile;
 
-	/*json j;
-	inFile >> j;*/
+	//json j;
+	//inFile >> j;
 	inFile.open("Savedata.txt");
 
 
@@ -110,7 +76,14 @@ void FileManager::OnRead()
 		float posX;
 		float posY;
 		float angle;
-		float scale;
+		float RotateAxisX;
+		float RotateAxisY;
+		float rotatePositionX;
+		float rotatePositionY;
+		float ScaleX;
+		float ScaleY;
+
+
 	};
 
 	// vector model data (name ,pos, rot)
@@ -142,12 +115,45 @@ void FileManager::OnRead()
 		}
 
 		// in this loop it looks for the frist 4 string of charaters to know that is the model rot
-		if (line.substr(0, 4) == "rot ") {
+		if (line.substr(0, 4) == "angle  ") {
 			std::stringstream ss = std::stringstream(line.substr(4));
 			float x;
 			ss >> x;
 			data.back().angle = x;
 		}
+
+
+		// in this loop it looks for the frist 4 string of charaters to know that is the model rot
+		if (line.substr(0, 11) == "Rotation Pos  ") {
+			std::stringstream ss = std::stringstream(line.substr(4));
+			float x, y;
+			ss >> x >> y;
+			data.back().rotatePositionX = x;
+			data.back().rotatePositionY = y;
+		}
+
+		// in this loop it looks for the frist 4 string of charaters to know that is the model rot
+		if (line.substr(0, 11) == "Rotate Axis  ") {
+			std::stringstream ss = std::stringstream(line.substr(4));
+			float x, y;
+			ss >> x >> y;
+			data.back().RotateAxisX = x;
+			data.back().RotateAxisY = y;
+		}
+
+
+		if (line.substr(0, 11) == "Scale ") {
+			std::stringstream ss = std::stringstream(line.substr(4));
+			float x, y;
+			ss >> x >> y;
+			data.back().ScaleX = x;
+			data.back().ScaleY = y;
+		}
+
+
+
+
+
 
 	}
 
@@ -157,7 +163,13 @@ void FileManager::OnRead()
 		std::cout << "Model" << d.ModelName << std::endl;
 		std::cout << "Positons x" << d.posX << std::endl;
 		std::cout << "Positons y" << d.posY << std::endl;
-		std::cout << "Rotation" << d.angle << std::endl;
+		std::cout << "angle" << d.angle << std::endl;
+		std::cout << "Rotation Pos X" << d.rotatePositionX << std::endl;
+		std::cout << "Rotation Pos Y" << d.rotatePositionY << std::endl;
+		std::cout << "Rotate AxisX" << d.RotateAxisX << std::endl;
+		std::cout << "Rotate AxisY" << d.RotateAxisY << std::endl;
+		std::cout << "Scale" << d.ScaleX << std::endl;
+		std::cout << "Scale" << d.ScaleY << std::endl;
 
 	}
 }
