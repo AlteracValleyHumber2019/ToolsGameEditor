@@ -285,7 +285,7 @@ void GameObject::SetLightPos(const Vec3& lightPos_) {
 bool GameObject::CheckCollisonSelection(int moseX_, int mouseY_)
 {
 	//if(moseX_ < SelectBox[0].x && )
-	return false;
+	return true;
 }
 void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatrix, const Matrix3& normalMatrix) const
 {

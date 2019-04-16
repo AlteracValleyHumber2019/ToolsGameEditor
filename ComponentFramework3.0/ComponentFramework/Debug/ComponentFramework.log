@@ -1,0 +1,5 @@
+﻿  GameObject.cpp
+d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(218): warning C4018: '<': signed/unsigned mismatch
+d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(234): warning C4018: '<': signed/unsigned mismatch
+d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(262): warning C4018: '<': signed/unsigned mismatch
+  ComponentFramework.vcxproj -> D:\Humber\Semester 4\Game 253_Obj-Oriented Analysis & Design\Assignments\ToolsGameEditor\ComponentFramework3.0\Debug\ComponentFramework.exe
