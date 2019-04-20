@@ -12,7 +12,7 @@
 using namespace GAME;
 using namespace MATH;
 
-Scene0::Scene0(class Window& windowRef) : Scene(windowRef), model0(nullptr) {
+Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) { 
 	trackball = new Trackball();
 	projectionMatrix.loadIdentity();
 	viewMatrix.loadIdentity();
@@ -20,7 +20,7 @@ Scene0::Scene0(class Window& windowRef) : Scene(windowRef), model0(nullptr) {
 	glEnable(GL_CULL_FACE);
 }
 
-Scene0::~Scene0() {
+Scene0::~Scene0(){ 
 	OnDestroy();
 }
 
@@ -38,7 +38,7 @@ bool Scene0::OnCreate() {
 	gameobject = new GameObject("chair.obj");
 	//gameobject->SetVel(Vec3(0.0f, 0.0f, 0.0f));
 	gameobject->SetPos(Vec3(0.0f, 0.0f, 0.0f));
-	sceneCamera = new Camera(Vec3(0, 0, 5));
+	sceneCamera = new Camera(Vec3(0,0,5));
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
@@ -46,14 +46,14 @@ bool Scene0::OnCreate() {
 
 	//arifa did this
 	ScenceModelList.push_back(gameobject);
-
+	
 	myOBJs[""].push_back(gameobject);
 
 	return true;
 }
 
 
-void Scene0::OnResize(int w_, int h_) {
+void Scene0::OnResize(int w_, int h_){
 	//windowPtr->SetWindowSize(w_,h_);
 	//glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
 
@@ -61,25 +61,25 @@ void Scene0::OnResize(int w_, int h_) {
 	//
 	//projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
 
-	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f),
-							   Vec3(0.0f, 0.0f, 0.0f),
+	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
+							   Vec3(0.0f, 0.0f, 0.0f), 
 							   Vec3(0.0f, 1.0f, 0.0f));*/
-
+	
 }
 
-void Scene0::OnDestroy() {
+void Scene0::OnDestroy(){
 	/// Cleanup Assets
-	if (gameobject) delete gameobject;
+	if(gameobject) delete gameobject;
 	gameobject = nullptr;
-	if (trackball) delete trackball;
+	if(trackball) delete trackball;
 	trackball = nullptr;
 }
 
-void Scene0::Update(const float deltaTime) {
+void Scene0::Update(const float deltaTime){
 	//model0->Update(deltaTime);	
 	//FileManager manager;
 	//manager.OnWrite(ScenceModelList);
-
+	
 	//for (GameObject* go : ScenceModelList) {
 	//	//JSONFile manager;
 	//	//manager.OnWrite(ScenceModelList);
@@ -87,7 +87,7 @@ void Scene0::Update(const float deltaTime) {
 
 }
 
-void Scene0::Render() const {
+void Scene0::Render() const{
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
@@ -98,10 +98,10 @@ void Scene0::Render() const {
 										Vec3(0.0f, 0.0f, 0.0f),
 										Vec3(0.0f, 1.0f, 0.0f));*/
 
-										/// Draw your scene here
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
+	/// Draw your scene here
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	
 	for (GameObject* go : ScenceModelList) {
 		go->SetLightPos(viewMatrix_ * lightPos);
 		go->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
@@ -110,34 +110,34 @@ void Scene0::Render() const {
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 }
 
-void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
+void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 	/*if(SDLEvent.type == SDL_EventType::SDL_MOUSEBUTTONDOWN){
 		trackball->OnLeftMouseDown(SDLEvent.button.x,SDLEvent.button.y);
 	}
-	if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION &&
+	if (SDLEvent.type == SDL_EventType::SDL_MOUSEMOTION && 
 		SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 		trackball->OnMouseMove(SDLEvent.button.x,SDLEvent.button.y);
 	}
 	*/
 
-	if (SDLEvent.key.keysym.sym == SDLK_5)
+	if (SDLEvent.key.keysym.sym == SDLK_5) 
 	{
-
+	
 		JSONFile manager;
 		manager.OnWrite(ScenceModelList);
 	}
-	else if (SDLEvent.key.keysym.sym == SDLK_4)
+	else if(SDLEvent.key.keysym.sym == SDLK_4)
 	{
-		for (GameObject* object : ScenceModelList)
+		for (GameObject* object : ScenceModelList) 
 		{
 			delete object;
 			object = nullptr;
-		}
+		}	
 
-		ScenceModelList.clear();
+		ScenceModelList.clear();	
 		JSONFile manager;
 		ScenceModelList = manager.OnRead();
-
+	
 	}
 
 	for (GameObject* go : ScenceModelList) {
@@ -166,7 +166,7 @@ void Scene0::processInput(const SDL_Event &SDLEvent, float deltaTime)
 	case SDLK_d:
 		sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
 		printf("Move RIGHT");
-		break;
+			break;
 	}
 }
 
@@ -175,7 +175,7 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 	int _xPos, _yPos;
 	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-
+		
 		SDL_GetMouseState(&_xPos, &_yPos);
 
 

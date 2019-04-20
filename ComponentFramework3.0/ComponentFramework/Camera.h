@@ -23,7 +23,7 @@ const float SPEED = 2.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
-class Camera {
+class Camera{
 private:
 	Vec3 position;
 	Vec3 front;
@@ -59,74 +59,74 @@ public:
 		updateCameraVectors();
 	}
 
-	Camera(float _posX, float _posY, float _posZ, float _upX, float _upY, float _upZ, float _yaw, float _pitch) : front(Vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSITIVITY), zoom(ZOOM) {
+   Camera(float _posX, float _posY, float _posZ, float _upX, float _upY, float _upZ, float _yaw, float _pitch) : front(Vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSITIVITY), zoom(ZOOM) {
 		position = Vec3(_posX, _posY, _posZ);
 		worldUp = Vec3(_upX, _upY, _upZ);
 		yaw = _yaw;
 		pitch = _pitch;
 		updateCameraVectors();
-	}
+   }
 
-	Matrix4 GetViewMatrix() {
-		return MMath::lookAt(position, position + front, up);
-	}
+   Matrix4 GetViewMatrix() {
+	   return MMath::lookAt(position, position + front, up);
+   }
 
-	Vec3 GetPosition() {
-		return position;
-	}
+   Vec3 GetPosition() {
+	   return position;
+   }
 
-	Vec3 GetFront() {
-		return front;
-	}
+   Vec3 GetFront() {
+	   return front;
+   }
 
-	void ProcessKeyboard(CAMERA::Camera_Movement _direction, float _deltaTime)
-	{
-		float velocity = movementSpeed * _deltaTime;
-		if (_direction == CAMERA::FORWARD)
-			position += front * velocity;
-		if (_direction == CAMERA::BACKWARD)
-			position -= front * velocity;
-		if (_direction == CAMERA::LEFT)
-			position -= right * velocity;
-		if (_direction == CAMERA::RIGHT)
-			position += right * velocity;
-	}
+   void ProcessKeyboard(CAMERA::Camera_Movement _direction, float _deltaTime)
+   {
+	   float velocity = movementSpeed * _deltaTime;
+	   if (_direction == CAMERA::FORWARD)
+		   position += front * velocity;
+	   if (_direction == CAMERA::BACKWARD)
+		   position -= front * velocity;
+	   if (_direction == CAMERA::LEFT)
+		   position -= right * velocity;
+	   if (_direction == CAMERA::RIGHT)
+		   position += right * velocity;
+   }
 
-	void ProcessMouseMovement(float _xOffset, float _yOffset, bool constrainPitch = true) {
-		_xOffset *= mouseSensitivity;
-		_yOffset *= mouseSensitivity;
+   void ProcessMouseMovement(float _xOffset, float _yOffset, bool constrainPitch = true) {
+	   _xOffset *= mouseSensitivity;
+	   _yOffset *= mouseSensitivity;
 
-		yaw += _xOffset;
-		pitch += _yOffset;
+	   yaw += _xOffset;
+	   pitch += _yOffset;
 
-		if (constrainPitch) {
-			if (pitch > 89.0f) {
-				pitch = 89.0f;
-			}
-			if (pitch < -89.0f) {
-				pitch = -89.0f;
-			}
-		}
+	   if (constrainPitch) {
+		   if (pitch > 89.0f) {
+			   pitch = 89.0f;
+		   }
+		   if (pitch < -89.0f) {
+			   pitch = -89.0f;
+		   }
+	   }
 
-		updateCameraVectors();
-	}
+	   updateCameraVectors();
+   }
 
-	void ProcessMouseScroll(float _yOffset) {
-		if (zoom >= 1.0f && zoom <= 45.0f) {
-			zoom -= _yOffset;
-		}
+   void ProcessMouseScroll(float _yOffset) {
+	   if (zoom >= 1.0f && zoom <= 45.0f) {
+		   zoom -= _yOffset;
+	   }
 
-		if (zoom <= 1.0f) {
-			zoom = 1.0f;
-		}
+	   if (zoom <= 1.0f) {
+		   zoom = 1.0f;
+	   }
 
-		if (zoom >= 45.0f) {
-			zoom = 45.0f;
-		}
-	}
-	float GetZoom() {
-		return zoom;
-	}
+	   if (zoom >= 45.0f) {
+		   zoom = 45.0f;
+	   }
+   }
+   float GetZoom() {
+	   return zoom;
+   }
 
 };
 

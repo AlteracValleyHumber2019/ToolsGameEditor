@@ -9,18 +9,18 @@
 using namespace MATH;
 
 class Mesh {
-public:
-	GLenum drawmode;
-	std::vector<Vec3> vertices;
-	std::vector<Vec3> normals;
-	std::vector<Vec2> uvCoords;
-	std::vector<GLuint> indices; /// Future stuff
-
-	Mesh(GLenum drawmode_, std::vector<Vec3>, std::vector<Vec3>, std::vector<Vec2>);
-	void Render() const;
-private:
-	GLuint vao, vbo;
-	void setupMesh();
-};
+    public:
+		GLenum drawmode;
+        std::vector<Vec3> vertices;
+		std::vector<Vec3> normals;
+		std::vector<Vec2> uvCoords;
+        std::vector<GLuint> indices; /// Future stuff
+      
+        Mesh(GLenum drawmode_,  std::vector<Vec3>, std::vector<Vec3>, std::vector<Vec2> );
+        void Render() const;
+    private: 
+        GLuint vao, vbo;
+        void setupMesh();
+};  
 
 #endif

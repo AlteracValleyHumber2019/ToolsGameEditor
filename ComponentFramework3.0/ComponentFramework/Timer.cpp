@@ -2,7 +2,7 @@
 
 using namespace GAME;
 
-Timer::Timer() :prevTicks(0), currTicks(0) {}
+Timer::Timer():prevTicks(0),currTicks(0) {}
 
 Timer::~Timer() {}
 

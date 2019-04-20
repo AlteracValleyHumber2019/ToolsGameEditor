@@ -12,9 +12,9 @@ namespace GAME {
 	class Trackball;
 	class Model0;
 
-	class Scene0 : public Scene {
+	class Scene0 : public Scene  {
 	protected:
-
+		
 	public:
 		explicit Scene0(Window& windowRef);
 		virtual ~Scene0();
@@ -26,7 +26,7 @@ namespace GAME {
 		Scene0& operator=(const Scene0 &) = delete;
 		Scene0& operator=(Scene0 &&) = delete;
 
-		virtual bool OnCreate();
+		virtual bool OnCreate() ;
 		virtual void OnDestroy();
 		virtual void Update(const float deltaTime);
 		virtual void Render() const;
@@ -34,7 +34,7 @@ namespace GAME {
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
-
+	
 
 		//arifa was here
 		GameObject* gameobject;
@@ -48,7 +48,7 @@ namespace GAME {
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;
-
+		
 		////arifa 
 		//std::vector<Model*> models;
 	};

@@ -33,7 +33,7 @@ FileManager::~FileManager()
 
 void FileManager::OnWrite(std::vector<GameObject*> ScenceModelList)
 {
-
+	
 
 	std::ofstream info;
 	//creates a file called Savedata.txt
@@ -51,7 +51,7 @@ void FileManager::OnWrite(std::vector<GameObject*> ScenceModelList)
 		info << "angle " << ScenceModelList[i]->Getangle() << std::endl;
 		info << "RotateAxis " << ScenceModelList[i]->GetRotateAxis().x << " " << ScenceModelList[i]->GetRotateAxis().y << std::endl;
 		info << "rotatePosition " << ScenceModelList[i]->GetrotatePosition().x << " " << ScenceModelList[i]->GetrotatePosition().y << std::endl;
-		info << "Scale " << ScenceModelList[i]->GetScale().x << " " << ScenceModelList[i]->GetScale().y << std::endl;
+		info << "Scale " << ScenceModelList[i]->GetScale().x<< " " << ScenceModelList[i]->GetScale().y << std::endl;
 	}
 
 	OnRead();
@@ -127,7 +127,7 @@ void FileManager::OnRead()
 		if (line.substr(0, 11) == "Rotation Pos  ") {
 			std::stringstream ss = std::stringstream(line.substr(4));
 			float x, y;
-			ss >> x >> y;
+			ss >> x>>y;
 			data.back().rotatePositionX = x;
 			data.back().rotatePositionY = y;
 		}
@@ -137,7 +137,7 @@ void FileManager::OnRead()
 			std::stringstream ss = std::stringstream(line.substr(4));
 			float x, y;
 			ss >> x >> y;
-			data.back().RotateAxisX = x;
+			data.back().RotateAxisX= x;
 			data.back().RotateAxisY = y;
 		}
 

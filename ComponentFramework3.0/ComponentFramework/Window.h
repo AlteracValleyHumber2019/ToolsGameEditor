@@ -14,16 +14,16 @@ namespace GAME {
 		Window(Window&&) = delete;
 		Window& operator = (const Window&) = delete;
 		Window& operator = (Window&&) = delete;
-
+		
 		bool OnCreate();
 		void OnDestroy();
-
+		
 		void SetWindowSize(const int Width_, const int Height_);
 		void ToggleFullScreen();
-
+		
 		int GetWidth() const;
 		int GetHeight() const;
-		inline SDL_Window* getSDLWindow() { return windowPtr; }
+		inline SDL_Window* getSDLWindow(){ return windowPtr;}
 	protected:
 		void GetInstalledOpenGLInfo();
 	private:

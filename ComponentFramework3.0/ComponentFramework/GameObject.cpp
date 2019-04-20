@@ -5,7 +5,7 @@
 #include <stdio.h>
 using namespace GAME;
 
-GameObject::GameObject(char*object_) :shader(nullptr) {
+GameObject::GameObject(char*object_):shader(nullptr) {
 	ModelName = object_;
 	OnCreate();
 }
@@ -16,7 +16,7 @@ GameObject::GameObject(char*object_) :shader(nullptr) {
 GameObject::GameObject(std::string filePath_) {
 	//gets file name 
 	ModelName = filePath_;
-
+	
 	OnCreate();
 }
 
@@ -58,14 +58,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 		st = Scale;
 		break;
 	case SDLK_RIGHT:
-		if (st == Move)
+		if(st == Move)
 		{
-			MoveObject(Vec3(1, 0, 0));
+			MoveObject(Vec3(1,0,0));
 			UpDateObject();
 			printf("Move RIGHT");
 			break;
-		}
-		else if (st == Rotate)
+		}else if(st == Rotate)
 		{
 			RotateObject(-5, Vec3(0, 0, 1));
 			UpDateObject();
@@ -80,14 +79,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			break;
 		}
 	case SDLK_LEFT:
-		if (st == Move)
+		if(st == Move)
 		{
 			MoveObject(Vec3(-1, 0, 0));
 			UpDateObject();
 			printf("Move LEFT");
 			break;
-		}
-		else if (st == Rotate)
+		}else if (st == Rotate)
 		{
 			RotateObject(5, Vec3(0, 0, 1));
 			UpDateObject();
@@ -102,14 +100,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			break;
 		}
 	case SDLK_UP:
-		if (st == Move)
+		if(st == Move)
 		{
 			MoveObject(Vec3(0, 1, 0));
 			UpDateObject();
 			printf("Move UP");
 			break;
-		}
-		else if (st == Rotate)
+		}else if(st == Rotate)
 		{
 			RotateObject(5, Vec3(0, 1, 0));
 			UpDateObject();
@@ -124,14 +121,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			break;
 		}
 	case SDLK_DOWN:
-		if (st == Move)
+		if(st == Move)
 		{
 			MoveObject(Vec3(0, -1, 0));
 			UpDateObject();
 			printf("Move DOWN");
 			break;
-		}
-		else if (st == Rotate)
+		}else if (st == Rotate)
 		{
 			RotateObject(-5, Vec3(0, 1, 0));
 			UpDateObject();
@@ -146,14 +142,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			break;
 		}
 	case SDLK_j:
-		if (st == Move)
+		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, 1));
 			UpDateObject();
 			printf("Move FRONT");
 			break;
-		}
-		else if (st == Rotate)
+		}else if (st == Rotate)
 		{
 			RotateObject(5, Vec3(1, 0, 0));
 			UpDateObject();
@@ -168,14 +163,13 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 			break;
 		}
 	case SDLK_u:
-		if (st == Move)
+		if(st == Move)
 		{
 			MoveObject(Vec3(0, 0, -1));
 			UpDateObject();
 			printf("Move BACK");
 			break;
-		}
-		else if (st == Rotate)
+		}else if (st == Rotate)
 		{
 			RotateObject(-5, Vec3(1, 0, 0));
 			UpDateObject();
@@ -206,12 +200,12 @@ void GameObject::ScaleObject(Vec3 scale_)
 }
 void GameObject::UpDateObject()
 {
-
+	
 	modelMatrix = MMath::translate(0, 0, 0);
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
 	modelMatrix *= MMath::translate(position.x, position.y, position.z);
-
+	
 }
 
 

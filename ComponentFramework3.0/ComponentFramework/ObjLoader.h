@@ -19,9 +19,9 @@ namespace GAME {
 		ObjLoader& operator=(ObjLoader&&) = delete;      /// Move operator
 
 		ObjLoader(const char* path);
-		bool loadOBJ(const char* path);
+		bool loadOBJ(const char* path); 
 	private:
-
+		
 
 
 	};

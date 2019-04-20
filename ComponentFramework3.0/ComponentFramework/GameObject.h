@@ -39,7 +39,7 @@ namespace GAME {
 		}
 
 
-		inline void SetPos(Vec3 pos_)
+		inline void SetPos(Vec3 pos_) 
 		{
 			position = pos_;
 			UpDateObject();

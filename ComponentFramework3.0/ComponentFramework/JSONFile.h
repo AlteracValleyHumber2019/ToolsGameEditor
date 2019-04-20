@@ -17,7 +17,7 @@ namespace GAME {
 	public:
 		JSONFile();
 		~JSONFile();
-
+	
 
 		virtual void OnWrite(std::vector<GameObject*> ScenceModelList);
 		virtual std::vector<GameObject*> OnRead();;
