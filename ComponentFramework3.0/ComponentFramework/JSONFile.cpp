@@ -34,17 +34,22 @@ void GAME::JSONFile::OnWrite(std::vector<GameObject*> ScenceModelList)
 		j["object" + std::to_string(i)]["type"] = ScenceModelList[i]->GetMOdelName();
 		j["object" + std::to_string(i)]["Pos x"] = ScenceModelList[i]->GetPos().x;
 		j["object" + std::to_string(i)]["Pos Y"] = ScenceModelList[i]->GetPos().y;
+		j["object" + std::to_string(i)]["Pos Z"] = ScenceModelList[i]->GetPos().z;
 
 		j["object" + std::to_string(i)]["RotateAxis X"] = ScenceModelList[i]->GetRotateAxis().x;
 		j["object" + std::to_string(i)]["RotateAxis Y"] = ScenceModelList[i]->GetRotateAxis().y;
+		j["object" + std::to_string(i)]["RotateAxis Z"] = ScenceModelList[i]->GetRotateAxis().z;
 	
+
+
 		j["object" + std::to_string(i)]["rotatePosition X"] = ScenceModelList[i]->GetrotatePosition().x;
 		j["object" + std::to_string(i)]["rotatePosition Y"] = ScenceModelList[i]->GetrotatePosition().y;
-	
+		j["object" + std::to_string(i)]["rotatePosition Z"] = ScenceModelList[i]->GetrotatePosition().z;
+
 
 		j["object" + std::to_string(i)]["ScaleX"] = ScenceModelList[i]->GetScale().x;
 		j["object" + std::to_string(i)]["ScaleY"] = ScenceModelList[i]->GetScale().y;
-	
+		j["object" + std::to_string(i)]["ScaleZ"] = ScenceModelList[i]->GetScale().z;
 
 		j["object" + std::to_string(i)]["angle"] = ScenceModelList[i]->Getangle();
 	}
@@ -69,10 +74,10 @@ std::vector<GameObject*> GAME::JSONFile::OnRead()
 	{
 		GameObject* gameobject = new GameObject(j[it.key()]["type"]);
 
-		gameobject->SetPos(MATH::Vec3(j[it.key()]["Pos x"], j[it.key()]["Pos Y"], 0.0));
-		gameobject->SetRotateAxis(MATH::Vec3(j[it.key()]["RotateAxis X"], j[it.key()]["RotateAxis Y"], 0));
-		gameobject->SetrotatePosition(MATH::Vec3(j[it.key()]["rotatePosition X"], j[it.key()]["rotatePosition Y"],0));
-		gameobject->SetScale(MATH::Vec3(j[it.key()]["ScaleX"], j[it.key()]["ScaleY"], 0));
+		gameobject->SetPos(MATH::Vec3(j[it.key()]["Pos x"], j[it.key()]["Pos Y"], j[it.key()]["Pos Z"]));
+		gameobject->SetRotateAxis(MATH::Vec3(j[it.key()]["RotateAxis X"], j[it.key()]["RotateAxis Y"], j[it.key()]["RotateAxis Z"]));
+		gameobject->SetrotatePosition(MATH::Vec3(j[it.key()]["rotatePosition X"], j[it.key()]["rotatePosition Y"], j[it.key()]["rotatePosition Z"]));
+		gameobject->SetScale(MATH::Vec3(j[it.key()]["ScaleX"], j[it.key()]["ScaleY"], j[it.key()]["ScaleZ"]));
 		gameobject->Setangle(j[it.key()]["angle"]);
 
 		ScenceModelList.push_back(gameobject);
