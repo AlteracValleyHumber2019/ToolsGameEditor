@@ -11,13 +11,20 @@ GameObject::GameObject(char*object_):shader(nullptr) {
 	ModelName = object_;
 	OnCreate();
 }
-GameObject::GameObject(char*object_, Vec3 Ipos_, std::string filePath_) : shader(nullptr) {
+GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
 	object = object_;
 	pos = Ipos_;
 	OnCreate();
+}
 
-	//gets file name 	//(arifa)
+
+
+//arifa creates string of files 
+GameObject::GameObject(std::string filePath_) {
+	//gets file name 
 	ModelName = filePath_;
+
+	OnCreate();
 }
 
 
