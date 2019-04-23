@@ -17,8 +17,6 @@ GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
 	OnCreate();
 }
 
-
-
 //arifa creates string of files 
 GameObject::GameObject(std::string filePath_) {
 	//gets file name 
