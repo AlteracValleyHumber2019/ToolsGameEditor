@@ -1,18 +1,26 @@
 #include "GameObject.h"
 #include "ObjLoader.h"
+#include "FileManager.h"
+#include "JSONFile.h"
 #include <stdio.h>
 #include <iostream>
 using namespace GAME;
 
 GameObject::GameObject(char*object_):shader(nullptr) {
-	object = object_;
+	//(arifa)
+	ModelName = object_;
 	OnCreate();
 }
-GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
+GameObject::GameObject(char*object_, Vec3 Ipos_, std::string filePath_) : shader(nullptr) {
 	object = object_;
 	pos = Ipos_;
 	OnCreate();
+
+	//gets file name 	//(arifa)
+	ModelName = filePath_;
 }
+
+
 bool GameObject::OnCreate() {
 
 	GAME::ObjLoader obj(object);	
@@ -39,6 +47,7 @@ bool GameObject::OnCreate() {
 	ObjectSelected = true;
 
 	//position = pos;
+	position = Vec3(0, 0, 0);
 	rotateAxis = Vec3(0, 0, 1);
 	scale = Vec3(1, 1, 1);
 	angle = 0;

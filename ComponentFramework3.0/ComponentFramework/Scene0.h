@@ -6,6 +6,8 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "vector"
+#include "FileManager.h"
+#include "JSONFile.h"
 
 namespace GAME {
 	/// Forward casting
@@ -35,13 +37,20 @@ namespace GAME {
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
 		
+
+
+		//arifa was here
+		GameObject* gameobject;
+		std::vector<GameObject*> ScenceModelList;
+		std::map<std::string, std::vector<GameObject*>> myOBJs;
+
+
+
 	private:
 		void placeObjects(char*object_);
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		//GameObject* gameobject;
-		std::vector<GameObject*> gameobjects;
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;

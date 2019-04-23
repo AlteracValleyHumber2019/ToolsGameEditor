@@ -31,9 +31,88 @@ namespace GAME {
 
 
 		void SetLightPos(const Vec3&);
+
+
+		//ModelName list  //arifa did this
+		GameObject(std::string filePath_);
+
 		bool CheckCollisonSelection(int moseX_, int mouseY_);
 		bool ObjectSelected;
 		void UpDateObject();
+
+
+		//gets pos (arifa)
+		inline Vec3 GetPos()
+		{
+
+			return position;
+
+		}
+
+		//(arifa)
+		inline void SetPos(Vec3 pos_)
+		{
+			position = pos_;
+			UpDateObject();
+		}
+
+
+		//gets pos (arifa)
+		inline float Getangle()
+		{
+			return angle;
+
+		}
+		//(arifa)
+		inline void Setangle(float angle_)
+		{
+			angle = angle_;
+			UpDateObject();
+		}
+
+		//(arifa)
+		inline Vec3 GetScale()
+		{
+			return scale;
+
+		}
+
+		//(arifa)
+		inline void SetScale(Vec3 Scale_)
+		{
+			scale = Scale_;
+			UpDateObject();
+		}
+
+
+		//(arifa)
+		inline Vec3 GetRotateAxis()
+		{
+			return rotateAxis;
+
+		}
+
+		//(arifa)
+		inline void SetRotateAxis(Vec3 RotateAxis_)
+		{
+			rotateAxis = RotateAxis_;
+			UpDateObject();
+		}
+
+		//(arifa)
+		inline Vec3 GetrotatePosition()
+		{
+			return rotatePosition;
+
+		}
+
+		//(arifa)
+		inline void SetrotatePosition(Vec3 rotatePosition_)
+		{
+			rotatePosition = rotatePosition_;
+			UpDateObject();
+		}
+
 		
 	private:
 		
@@ -52,8 +131,9 @@ namespace GAME {
 		Vec3 maxX;
 		std::vector<Vec3> SelectBox;
 		Vec3 lightPos;
-		char* object;
-		//Vec3 position;
+	/*	char* object;*/
+		//arifa did this(pos)
+		Vec3 position;
 		Vec3 rotatePosition;
 		float angle;
 		Vec3 rotateAxis;

@@ -13,19 +13,23 @@ namespace GAME {
 
 class Model {
 protected:
-	Vec3 pos;
-	Vec3 vel;
+	//(arifa)
+	//Vec3 pos;
+	//Vec3 vel;
 	Vec3 orientation;
 	Vec3 gravity;
 	Sphere bounding;
 	Matrix4 modelMatrix;
 	Scene* parentScene;
 	std::vector<Mesh*> meshes;
+
+	//arifa did this
+	std::string ModelName;
 public:
 
-
-	inline void SetPos(const Vec3& pos_){ pos = pos_; }
-	inline void SetVel(const Vec3& vel_){ vel = vel_; }
+	//arifa did this
+	//inline void SetPos(const Vec3& pos_){ pos = pos_; }
+	//inline void SetVel(const Vec3& vel_){ vel = vel_; }
 
 	virtual ~Model(){};
 
@@ -40,6 +44,13 @@ public:
 	virtual bool OnCreate() = 0;
 	virtual void OnDestroy() = 0;
 	virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
+
+
+	//gets model name  (arifa)
+	inline std::string GetMOdelName()
+	{
+		return ModelName;
+	}
 
 
 	//void Update(const float deltaTime){

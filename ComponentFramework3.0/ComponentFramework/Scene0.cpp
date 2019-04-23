@@ -46,7 +46,10 @@ bool Scene0::OnCreate() {
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
 
-	
+	//arifa did this
+	ScenceModelList.push_back(gameobject);
+	myOBJs[""].push_back(gameobject);
+
 
 	return true;
 }
@@ -259,6 +262,12 @@ void Scene0::Render(){
 		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
 	}
   
+	//arifa was here
+	for (GameObject* go : ScenceModelList) {
+		go->SetLightPos(viewMatrix_ * lightPos);
+		go->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+	}
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     SDL_GL_SwapWindow(windowPtr->getSDLWindow());
@@ -289,6 +298,35 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 	{
 		ObjectSelection();
 		printf("Object Selected");
+	}
+
+
+
+
+
+	//arifa was here this is the event system  for save and load
+	if (SDLEvent.key.keysym.sym == SDLK_5)
+	{
+
+		JSONFile manager;
+		manager.OnWrite(ScenceModelList);
+	}
+	else if (SDLEvent.key.keysym.sym == SDLK_4)
+	{
+		for (GameObject* object : ScenceModelList)
+		{
+			delete object;
+			object = nullptr;
+		}
+
+		ScenceModelList.clear();
+		JSONFile manager;
+		ScenceModelList = manager.OnRead();
+
+	}
+
+	for (GameObject* go : ScenceModelList) {
+		go->HandleEvents(SDLEvent);
 	}
 }
 
