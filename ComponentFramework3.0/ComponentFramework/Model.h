@@ -3,7 +3,7 @@
 #include <vector>
 #include "MMath.h"
 #include "Mesh.h"
-
+#include "ObjLoader.h"
 
 using namespace MATH;
 
@@ -11,55 +11,42 @@ class Scene;
 
 namespace GAME {
 
-class Model {
-protected:
-	//(arifa)
-	//Vec3 pos;
-	//Vec3 vel;
-	Vec3 orientation;
-	Vec3 gravity;
-	Sphere bounding;
-	Matrix4 modelMatrix;
-	Scene* parentScene;
-	std::vector<Mesh*> meshes;
+	class Model {
+	protected:
 
-	//arifa did this
-	std::string ModelName;
-public:
+		Vec3 orientation;
+		Vec3 gravity;
+		Sphere bounding;
+		Matrix4 modelMatrix;
+		Scene* parentScene;
+		std::vector<Mesh*> meshes;
 
-	//arifa did this
-	//inline void SetPos(const Vec3& pos_){ pos = pos_; }
-	//inline void SetVel(const Vec3& vel_){ vel = vel_; }
+		//arifa did this
+		std::string object;
+	public:
 
-	virtual ~Model(){};
+		virtual ~Model() {};
 
-	Model(const Model&) = delete;
-	Model(Model&&) = delete;
-	Model& operator = (const Model&) = delete;
-	Model& operator = (Model&&) = delete;
+		Model(const Model&) = delete;
+		Model(Model&&) = delete;
+		Model& operator = (const Model&) = delete;
+		Model& operator = (Model&&) = delete;
 
-	Model() : gravity(0.0f,-9.8f,0.0f)  { };
- 
-
-	virtual bool OnCreate() = 0;
-	virtual void OnDestroy() = 0;
-	virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
+		Model() : gravity(0.0f, -9.8f, 0.0f) { };
 
 
-	//gets model name  (arifa)
-	inline std::string GetMOdelName()
-	{
-		return ModelName;
-	}
+		virtual bool OnCreate() = 0;
+		virtual void OnDestroy() = 0;
+		virtual void Render(const Matrix4& projectionMatrix, const Matrix4& modelViewMatrix, const Matrix3& normalMatrix)const = 0;
 
 
-	//void Update(const float deltaTime){
-	//	pos += vel * deltaTime + 0.5f * gravity * deltaTime * deltaTime;
-	//	vel += gravity * deltaTime;
+		//gets model name  (arifa)
+		inline std::string GetMOdelName()
+		{
+			return object;
+		}
 
-	//}
-
-};
+	};
 
 } /// end of namespace
 

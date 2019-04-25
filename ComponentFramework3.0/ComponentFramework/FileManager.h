@@ -17,16 +17,6 @@ namespace GAME {
 		virtual void OnWrite(std::vector<GameObject*> ScenceModelList);
 		virtual void OnRead();
 
-
-
-
-
-
-		//arifa did this 
-		//Scene0* CallScence;
-		//GameObject* gameobject;
-		//std::vector<Model*> ModelObjlist;
-
 	};
 
 }

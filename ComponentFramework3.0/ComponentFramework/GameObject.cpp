@@ -6,21 +6,19 @@
 #include <iostream>
 using namespace GAME;
 
-GameObject::GameObject(char*object_):shader(nullptr) {
-	//(arifa)
-	ModelName = object_;
+GameObject::GameObject(char*object_) :shader(nullptr) {
 	OnCreate();
 }
 GameObject::GameObject(char*object_, Vec3 Ipos_) : shader(nullptr) {
 	object = object_;
-	pos = Ipos_;
+	position = Ipos_;
 	OnCreate();
 }
 
 //arifa creates string of files 
 GameObject::GameObject(std::string filePath_) {
 	//gets file name 
-	ModelName = filePath_;
+	object = filePath_;
 
 	OnCreate();
 }
@@ -28,7 +26,8 @@ GameObject::GameObject(std::string filePath_) {
 
 bool GameObject::OnCreate() {
 
-	GAME::ObjLoader obj(object);	
+
+	GAME::ObjLoader obj(object.c_str());
 
 	meshes.push_back(new Mesh(GL_TRIANGLES, obj.vertices, obj.normals, obj.uvCoords));
 
@@ -211,7 +210,7 @@ void GameObject::HandleEvents(const SDL_Event &SDLEvent)
 }
 void GameObject::MoveObject(Vec3 pos_)
 {
-	pos += pos_;
+	position += pos_;
 }
 void GameObject::RotateObject(float angle_, Vec3 roateAxix_)
 {
@@ -289,7 +288,7 @@ void GameObject::UpDateObject()
 	modelMatrix = GetCenter();
 	modelMatrix *= MMath::rotate(angle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
 	modelMatrix *= MMath::scale(scale.x, scale.y, scale.z);
-	modelMatrix *= MMath::translate(pos.x, pos.y, pos.z);
+	modelMatrix *= MMath::translate(position.x, position.y, position.z);
 }
 
 void GameObject::SetLightPos(const Vec3& lightPos_) {

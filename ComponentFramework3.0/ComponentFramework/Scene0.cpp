@@ -7,12 +7,14 @@
 #include "Model0.h"
 #include "Trackball.h"
 #include <stdio.h>
+#include <fstream>
+#include <sstream>
 
 using namespace GAME;
 using namespace MATH;
 
 
-Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) { 
+Scene0::Scene0(class Window& windowRef) : Scene(windowRef), model0(nullptr) {
 	trackball = new Trackball();
 	projectionMatrix.loadIdentity();
 	viewMatrix.loadIdentity();
@@ -21,7 +23,7 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) {
 
 }
 
-Scene0::~Scene0(){ 
+Scene0::~Scene0() {
 	OnDestroy();
 }
 
@@ -37,17 +39,21 @@ bool Scene0::OnCreate() {
 	//SDL_ShowCursor(SDL_DISABLE);
 	firstMouse = true;
 
-	gameobjects.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
-	gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
+	//gameobjects.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
+	//gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
+
+	//arifa (rescent change need it to add to the list game objects in json)
+	ScenceModelList.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
+	ScenceModelList.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
 
 
-	sceneCamera = new Camera(Vec3(0,0,5));
+	sceneCamera = new Camera(Vec3(0, 0, 5));
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
 
 	//arifa did this
-	ScenceModelList.push_back(gameobject);
+	//ScenceModelList.push_back(gameobject);
 	myOBJs[""].push_back(gameobject);
 
 
@@ -55,7 +61,7 @@ bool Scene0::OnCreate() {
 }
 
 
-void Scene0::OnResize(int w_, int h_){
+void Scene0::OnResize(int w_, int h_) {
 	//windowPtr->SetWindowSize(w_,h_);
 	//glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
 
@@ -63,22 +69,32 @@ void Scene0::OnResize(int w_, int h_){
 	//
 	//projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
 
-	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
-							   Vec3(0.0f, 0.0f, 0.0f), 
+	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f),
+							   Vec3(0.0f, 0.0f, 0.0f),
 							   Vec3(0.0f, 1.0f, 0.0f));*/
-	
+
 }
 
-void Scene0::OnDestroy(){
-	/// Cleanup Assets
-	for (auto object: gameobjects)
+void Scene0::OnDestroy() {
+	/// Cleanup Assets (goes thourth ScenceModelList for gameobects)
+	for (GameObject* object : ScenceModelList)
 	{
 		if (object) delete object;
 		object = nullptr;
 	}
 
 
-	if(trackball) delete trackball;
+
+	///// Cleanup Assets
+	//for (auto object : gameobjects)
+	//{
+	//	if (object) delete object;
+	//	object = nullptr;
+	//}
+
+
+
+	if (trackball) delete trackball;
 	trackball = nullptr;
 
 	//Clean Up ImGui
@@ -86,7 +102,7 @@ void Scene0::OnDestroy(){
 	ImGui_ImplSDL2_Shutdown();
 }
 
-void Scene0::Update(const float deltaTime){
+void Scene0::Update(const float deltaTime) {
 
 	/// Declare boolean of checkbox variables
 	static bool show_control_window = false;
@@ -135,10 +151,10 @@ void Scene0::Update(const float deltaTime){
 				sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
 			}
 
-			// 3. Object movement through Linear and Rotation plus Scale
+			// 3. Object movement through Linear and Rotation plus Scale /* Arifa NOte made goes through   ScenceModelList for objects */
 			ImGui::Text("2: Object Manipulation");
 			ImGui::BulletText("Linear Movement");
-			for (auto objects : gameobjects)
+			for (GameObject* objects : ScenceModelList)
 			{
 				if (ImGui::Button("Left"))
 				{
@@ -216,6 +232,86 @@ void Scene0::Update(const float deltaTime){
 					objects->UpDateObject();
 				}
 			}
+
+
+			/*for (auto objects : gameobjects)
+			{
+				if (ImGui::Button("Left"))
+				{
+					objects->MoveObject(Vec3(-1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Right"))
+				{
+					objects->MoveObject(Vec3(1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Up"))
+				{
+					objects->MoveObject(Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Down"))
+				{
+					objects->MoveObject(Vec3(0, -1, 0));
+					objects->UpDateObject();
+				}
+
+				// Rotate
+				ImGui::BulletText("Rotation");
+				if (ImGui::Button("Left"))
+				{
+					objects->RotateObject(5, Vec3(0, 0, 1));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Right"))
+				{
+					objects->RotateObject(-5, Vec3(0, 0, 1));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Up"))
+				{
+					objects->RotateObject(5, Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Down"))
+				{
+					objects->RotateObject(-5, Vec3(0, 1, 0));
+					objects->UpDateObject();
+				}
+
+				// Scale
+				ImGui::BulletText("Scale Objects");
+				if (ImGui::Button("Left"))
+				{
+					objects->ScaleObject(Vec3(-1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Right"))
+				{
+					objects->ScaleObject(Vec3(1, 0, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Up"))
+				{
+					objects->ScaleObject(Vec3(0, 1, 0));
+					objects->UpDateObject();
+				} ImGui::SameLine();
+
+				if (ImGui::Button("Down"))
+				{
+					objects->ScaleObject(Vec3(0, -1, 0));
+					objects->UpDateObject();
+				}
+			}*/
 			ImGui::End();
 		}
 	}
@@ -224,7 +320,8 @@ void Scene0::Update(const float deltaTime){
 		if (!ImGui::Begin("Another Window", &show_another_window))
 		{
 			ImGui::End();
-		} else
+		}
+		else
 		{
 			ImGui::Text("Hello Another window!");
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
@@ -245,7 +342,7 @@ void Scene0::Update(const float deltaTime){
 	ImGui::End();
 }
 
-void Scene0::Render(){
+void Scene0::Render() {
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
@@ -254,15 +351,26 @@ void Scene0::Render(){
 
 	/// ImGUI render
 	/// Draw your scene here
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto object : gameobjects)
+
+
+	//arifa was here
+	/*for (auto object : ScenceModelList)
 	{
 		object->SetLightPos(viewMatrix_ * lightPos);
 		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
 	}
-  
-	//arifa was here
+*/
+/*
+for (auto object : gameobjects)
+{
+	object->SetLightPos(viewMatrix_ * lightPos);
+	object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+}
+*/
+
+//arifa was here
 	for (GameObject* go : ScenceModelList) {
 		go->SetLightPos(viewMatrix_ * lightPos);
 		go->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
@@ -270,14 +378,30 @@ void Scene0::Render(){
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    SDL_GL_SwapWindow(windowPtr->getSDLWindow());
+	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 
 }
 void Scene0::ObjectSelection()
 {
 	int MouseXPos, MouseYPos;
 	SDL_GetMouseState(&MouseXPos, &MouseYPos);
-	for (auto objects : gameobjects)
+
+	//arifa was here
+	for (auto objects : ScenceModelList)
+	{
+		if (objects->CheckCollisonSelection(MouseXPos, MouseYPos))
+		{
+			objects->ObjectSelected = true;
+		}
+		else
+		{
+			objects->ObjectSelected = false;
+		}
+	}
+
+
+	/*
+		for (auto objects : gameobjects)
 	{
 		if(objects->CheckCollisonSelection(MouseXPos, MouseYPos))
 		{
@@ -287,10 +411,26 @@ void Scene0::ObjectSelection()
 			objects->ObjectSelected = false;
 		}
 	}
-}
-void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 
-	for (auto object : gameobjects)
+
+	*/
+}
+void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
+
+
+	//arifa was here
+	for (auto object : ScenceModelList)
+	{
+		object->HandleEvents(SDLEvent);
+	}
+	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	{
+		ObjectSelection();
+		printf("Object Selected");
+	}
+
+	/*
+		for (auto object : gameobjects)
 	{
 		object->HandleEvents(SDLEvent);
 	}
@@ -301,6 +441,7 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 	}
 
 
+	*/
 
 
 
@@ -338,7 +479,14 @@ void Scene0::placeObjects(char*object_)
 
 	Vec3 ObjectLoc = getObjectLocation(MouseXPos, MouseYPos);
 
-	gameobjects.push_back(new GameObject(object_, ObjectLoc));
+
+	//arifa was here
+	ScenceModelList.push_back(new GameObject(object_, ObjectLoc));
+
+
+	//	gameobjects.push_back(new GameObject(object_, ObjectLoc));
+
+
 }
 Vec3 Scene0::getObjectLocation(float mouseX, float mouseY)
 {
@@ -397,7 +545,7 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 	int _xPos, _yPos;
 	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		
+
 		SDL_GetMouseState(&_xPos, &_yPos);
 
 		//camera mouse movement

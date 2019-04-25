@@ -28,12 +28,10 @@ namespace GAME {
 		void MakeSelectBox();
 		Matrix4 GetCenter();
 
-
-
 		void SetLightPos(const Vec3&);
 
 
-		//ModelName list  //arifa did this
+		//ModelName list  
 		GameObject(std::string filePath_);
 
 		bool CheckCollisonSelection(int moseX_, int mouseY_);
@@ -57,7 +55,7 @@ namespace GAME {
 		}
 
 
-		//gets pos (arifa)
+		//gets angle (arifa)
 		inline float Getangle()
 		{
 			return angle;
@@ -113,9 +111,9 @@ namespace GAME {
 			UpDateObject();
 		}
 
-		
+
 	private:
-		
+
 		GAME::Shader *shader;
 		GLuint vbo;
 		GLuint vao;
@@ -131,8 +129,12 @@ namespace GAME {
 		Vec3 maxX;
 		std::vector<Vec3> SelectBox;
 		Vec3 lightPos;
-	/*	char* object;*/
-		//arifa did this(pos)
+
+
+
+
+
+		//char* object;
 		Vec3 position;
 		Vec3 rotatePosition;
 		float angle;
