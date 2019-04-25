@@ -39,9 +39,6 @@ bool Scene0::OnCreate() {
 	//SDL_ShowCursor(SDL_DISABLE);
 	firstMouse = true;
 
-	//gameobjects.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
-	//gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
-
 	//arifa (rescent change need it to add to the list game objects in json)
 	ScenceModelList.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
 	ScenceModelList.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
@@ -52,10 +49,7 @@ bool Scene0::OnCreate() {
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
 
-	//arifa did this
-	//ScenceModelList.push_back(gameobject);
 	myOBJs[""].push_back(gameobject);
-
 
 	return true;
 }
@@ -83,17 +77,6 @@ void Scene0::OnDestroy() {
 		object = nullptr;
 	}
 
-
-
-	///// Cleanup Assets
-	//for (auto object : gameobjects)
-	//{
-	//	if (object) delete object;
-	//	object = nullptr;
-	//}
-
-
-
 	if (trackball) delete trackball;
 	trackball = nullptr;
 
@@ -108,12 +91,35 @@ void Scene0::Update(const float deltaTime) {
 	static bool show_control_window = false;
 	static bool show_another_window = false;
 	static bool show_demo_window = false;
+	static bool my_tool_active = true;
 
 	/// 1. ImGui window opens with newFrame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(windowPtr->getSDLWindow());
 	ImGui::NewFrame();
-	ImGui::Begin("Editor Menu");
+	ImGui::Begin("Editor Menu", &my_tool_active, ImGuiWindowFlags_MenuBar);
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
+			if (ImGui::MenuItem("Save", "Ctrl+S")) { jsonFile.OnWrite(ScenceModelList); }
+			if (ImGui::MenuItem("Load", "Ctrl+L"))
+			{
+				for (GameObject* object : ScenceModelList)
+				{
+					delete object;
+					object = nullptr;
+				}
+
+				ScenceModelList.clear();
+				ScenceModelList = jsonFile.OnRead();
+			}
+			if (ImGui::MenuItem("Close", "Ctrl+W")) { my_tool_active = false; }
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
 
 	/// Checkbox features will open and close Window
 	ImGui::Checkbox("Control Window", &show_control_window);
@@ -152,10 +158,12 @@ void Scene0::Update(const float deltaTime) {
 			}
 
 			// 3. Object movement through Linear and Rotation plus Scale /* Arifa NOte made goes through   ScenceModelList for objects */
+			ImGui::Text(" ");
 			ImGui::Text("2: Object Manipulation");
-			ImGui::BulletText("Linear Movement");
 			for (GameObject* objects : ScenceModelList)
 			{
+				// Linear
+				ImGui::BulletText("Linear");
 				if (ImGui::Button("Left"))
 				{
 					objects->MoveObject(Vec3(-1, 0, 0));
@@ -231,87 +239,9 @@ void Scene0::Update(const float deltaTime) {
 					objects->ScaleObject(Vec3(0, -1, 0));
 					objects->UpDateObject();
 				}
+
+				ImGui::Text(" ");
 			}
-
-
-			/*for (auto objects : gameobjects)
-			{
-				if (ImGui::Button("Left"))
-				{
-					objects->MoveObject(Vec3(-1, 0, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Right"))
-				{
-					objects->MoveObject(Vec3(1, 0, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Up"))
-				{
-					objects->MoveObject(Vec3(0, 1, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Down"))
-				{
-					objects->MoveObject(Vec3(0, -1, 0));
-					objects->UpDateObject();
-				}
-
-				// Rotate
-				ImGui::BulletText("Rotation");
-				if (ImGui::Button("Left"))
-				{
-					objects->RotateObject(5, Vec3(0, 0, 1));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Right"))
-				{
-					objects->RotateObject(-5, Vec3(0, 0, 1));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Up"))
-				{
-					objects->RotateObject(5, Vec3(0, 1, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Down"))
-				{
-					objects->RotateObject(-5, Vec3(0, 1, 0));
-					objects->UpDateObject();
-				}
-
-				// Scale
-				ImGui::BulletText("Scale Objects");
-				if (ImGui::Button("Left"))
-				{
-					objects->ScaleObject(Vec3(-1, 0, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Right"))
-				{
-					objects->ScaleObject(Vec3(1, 0, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Up"))
-				{
-					objects->ScaleObject(Vec3(0, 1, 0));
-					objects->UpDateObject();
-				} ImGui::SameLine();
-
-				if (ImGui::Button("Down"))
-				{
-					objects->ScaleObject(Vec3(0, -1, 0));
-					objects->UpDateObject();
-				}
-			}*/
 			ImGui::End();
 		}
 	}
@@ -353,23 +283,6 @@ void Scene0::Render() {
 	/// Draw your scene here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
-	//arifa was here
-	/*for (auto object : ScenceModelList)
-	{
-		object->SetLightPos(viewMatrix_ * lightPos);
-		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
-	}
-*/
-/*
-for (auto object : gameobjects)
-{
-	object->SetLightPos(viewMatrix_ * lightPos);
-	object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
-}
-*/
-
 //arifa was here
 	for (GameObject* go : ScenceModelList) {
 		go->SetLightPos(viewMatrix_ * lightPos);
@@ -398,22 +311,6 @@ void Scene0::ObjectSelection()
 			objects->ObjectSelected = false;
 		}
 	}
-
-
-	/*
-		for (auto objects : gameobjects)
-	{
-		if(objects->CheckCollisonSelection(MouseXPos, MouseYPos))
-		{
-			objects->ObjectSelected = true;
-		}else
-		{
-			objects->ObjectSelected = false;
-		}
-	}
-
-
-	*/
 }
 void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
 
@@ -429,42 +326,6 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
 		printf("Object Selected");
 	}
 
-	/*
-		for (auto object : gameobjects)
-	{
-		object->HandleEvents(SDLEvent);
-	}
-	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
-	{
-		ObjectSelection();
-		printf("Object Selected");
-	}
-
-
-	*/
-
-
-
-	//arifa was here this is the event system  for save and load
-	if (SDLEvent.key.keysym.sym == SDLK_5)
-	{
-
-		JSONFile manager;
-		manager.OnWrite(ScenceModelList);
-	}
-	else if (SDLEvent.key.keysym.sym == SDLK_4)
-	{
-		for (GameObject* object : ScenceModelList)
-		{
-			delete object;
-			object = nullptr;
-		}
-
-		ScenceModelList.clear();
-		JSONFile manager;
-		ScenceModelList = manager.OnRead();
-
-	}
 
 	for (GameObject* go : ScenceModelList) {
 		go->HandleEvents(SDLEvent);
@@ -479,14 +340,12 @@ void Scene0::placeObjects(char*object_)
 
 	Vec3 ObjectLoc = getObjectLocation(MouseXPos, MouseYPos);
 
-
 	//arifa was here
 	ScenceModelList.push_back(new GameObject(object_, ObjectLoc));
 
-
-	//	gameobjects.push_back(new GameObject(object_, ObjectLoc));
-
-
+	for (int i = ScenceModelList.size(); i <= ScenceModelList.size() - 1; --i) {
+		ScenceModelList[i]->ObjectSelected = false;
+	}
 }
 Vec3 Scene0::getObjectLocation(float mouseX, float mouseY)
 {

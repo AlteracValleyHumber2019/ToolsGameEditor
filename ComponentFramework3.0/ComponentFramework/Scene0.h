@@ -43,6 +43,7 @@ namespace GAME {
 		GameObject* gameobject;
 		std::vector<GameObject*> ScenceModelList;
 		std::map<std::string, std::vector<GameObject*>> myOBJs;
+		JSONFile jsonFile;
 
 
 
