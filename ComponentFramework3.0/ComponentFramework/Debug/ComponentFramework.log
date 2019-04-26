@@ -1,5 +1,11 @@
-﻿  GameObject.cpp
-d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(218): warning C4018: '<': signed/unsigned mismatch
-d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(234): warning C4018: '<': signed/unsigned mismatch
-d:\humber\semester 4\game 253_obj-oriented analysis & design\assignments\toolsgameeditor\componentframework3.0\componentframework\gameobject.cpp(262): warning C4018: '<': signed/unsigned mismatch
-  ComponentFramework.vcxproj -> D:\Humber\Semester 4\Game 253_Obj-Oriented Analysis & Design\Assignments\ToolsGameEditor\ComponentFramework3.0\Debug\ComponentFramework.exe
+﻿  Scene0.cpp
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\camera.h(46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(341): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(346): warning C4018: '<=': signed/unsigned mismatch
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(358): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(362): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(418): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\dong hyeong lee\documents\github\toolsgameeditor\componentframework3.0\componentframework\scene0.cpp(419): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  ComponentFramework.vcxproj -> C:\Users\Dong Hyeong Lee\Documents\GitHub\ToolsGameEditor\ComponentFramework3.0\Debug\ComponentFramework.exe

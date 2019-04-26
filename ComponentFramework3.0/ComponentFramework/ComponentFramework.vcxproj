@@ -73,7 +73,6 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSceneManager.cpp" />
-    <ClCompile Include="GCamera.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
@@ -99,7 +98,6 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GCamera.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_opengl3.h" />

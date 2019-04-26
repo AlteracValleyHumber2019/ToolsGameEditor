@@ -7,13 +7,15 @@
 #include "Model0.h"
 #include "Trackball.h"
 #include <stdio.h>
+#include <fstream>
+#include <sstream>
 #include "TestPicker.h"
 
 using namespace GAME;
 using namespace MATH;
 
 
-Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) { 
+Scene0::Scene0(class Window& windowRef) : Scene(windowRef), model0(nullptr) {
 	trackball = new Trackball();
 	projectionMatrix.loadIdentity();
 	viewMatrix.loadIdentity();
@@ -22,7 +24,7 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef), model0(nullptr) {
 
 }
 
-Scene0::~Scene0(){ 
+Scene0::~Scene0() {
 	OnDestroy();
 }
 
@@ -38,22 +40,23 @@ bool Scene0::OnCreate() {
 	//SDL_ShowCursor(SDL_DISABLE);
 	firstMouse = true;
 
-	gameobjects.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
-	gameobjects.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
+	//arifa (rescent change need it to add to the list game objects in json)
+	ScenceModelList.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
+	ScenceModelList.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
 
 
-	sceneCamera = new Camera(Vec3(0,0,5));
+	sceneCamera = new Camera(Vec3(0, 0, 5));
 
 	lastX = windowPtr->GetWidth() / 2;
 	lastY = windowPtr->GetHeight() / 2;
 
-	
+	myOBJs[""].push_back(gameobject);
 
 	return true;
 }
 
 
-void Scene0::OnResize(int w_, int h_){
+void Scene0::OnResize(int w_, int h_) {
 	//windowPtr->SetWindowSize(w_,h_);
 	//glViewport(0,0,windowPtr->GetWidth(),windowPtr->GetHeight());
 
@@ -61,22 +64,21 @@ void Scene0::OnResize(int w_, int h_){
 	//
 	//projectionMatrix = MMath::perspective(45.0f, aspect, 1.0f, 100.0f);
 
-	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f), 
-							   Vec3(0.0f, 0.0f, 0.0f), 
+	/*viewMatrix = MMath::lookAt(Vec3(0.0f, 0.0f, 10.0f),
+							   Vec3(0.0f, 0.0f, 0.0f),
 							   Vec3(0.0f, 1.0f, 0.0f));*/
-	
+
 }
 
-void Scene0::OnDestroy(){
-	/// Cleanup Assets
-	for (auto object: gameobjects)
+void Scene0::OnDestroy() {
+	/// Cleanup Assets (goes thourth ScenceModelList for gameobects)
+	for (GameObject* object : ScenceModelList)
 	{
 		if (object) delete object;
 		object = nullptr;
 	}
 
-
-	if(trackball) delete trackball;
+	if (trackball) delete trackball;
 	trackball = nullptr;
 
 	//Clean Up ImGui
@@ -84,18 +86,41 @@ void Scene0::OnDestroy(){
 	ImGui_ImplSDL2_Shutdown();
 }
 
-void Scene0::Update(const float deltaTime){
+void Scene0::Update(const float deltaTime) {
 
 	/// Declare boolean of checkbox variables
 	static bool show_control_window = false;
 	static bool show_another_window = false;
 	static bool show_demo_window = false;
+	static bool my_tool_active = true;
 
 	/// 1. ImGui window opens with newFrame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(windowPtr->getSDLWindow());
 	ImGui::NewFrame();
-	ImGui::Begin("Editor Menu");
+	ImGui::Begin("Editor Menu", &my_tool_active, ImGuiWindowFlags_MenuBar);
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
+			if (ImGui::MenuItem("Save", "Ctrl+S")) { jsonFile.OnWrite(ScenceModelList); }
+			if (ImGui::MenuItem("Load", "Ctrl+L"))
+			{
+				for (GameObject* object : ScenceModelList)
+				{
+					delete object;
+					object = nullptr;
+				}
+
+				ScenceModelList.clear();
+				ScenceModelList = jsonFile.OnRead();
+			}
+			if (ImGui::MenuItem("Close", "Ctrl+W")) { my_tool_active = false; }
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
 
 	/// Checkbox features will open and close Window
 	ImGui::Checkbox("Control Window", &show_control_window);
@@ -133,11 +158,13 @@ void Scene0::Update(const float deltaTime){
 				sceneCamera->ProcessKeyboard(CAMERA::RIGHT, deltaTime);
 			}
 
-			// 3. Object movement through Linear and Rotation plus Scale
+			// 3. Object movement through Linear and Rotation plus Scale /* Arifa NOte made goes through   ScenceModelList for objects */
+			ImGui::Text(" ");
 			ImGui::Text("2: Object Manipulation");
-			ImGui::BulletText("Linear Movement");
-			for (auto objects : gameobjects)
+			for (GameObject* objects : ScenceModelList)
 			{
+				// Linear
+				ImGui::BulletText("Linear");
 				if (ImGui::Button("Left"))
 				{
 					objects->MoveObject(Vec3(-1, 0, 0));
@@ -213,6 +240,8 @@ void Scene0::Update(const float deltaTime){
 					objects->ScaleObject(Vec3(0, -1, 0));
 					objects->UpDateObject();
 				}
+
+				ImGui::Text(" ");
 			}
 			ImGui::End();
 		}
@@ -222,7 +251,8 @@ void Scene0::Update(const float deltaTime){
 		if (!ImGui::Begin("Another Window", &show_another_window))
 		{
 			ImGui::End();
-		} else
+		}
+		else
 		{
 			ImGui::Text("Hello Another window!");
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
@@ -243,7 +273,7 @@ void Scene0::Update(const float deltaTime){
 	ImGui::End();
 }
 
-void Scene0::Render(){
+void Scene0::Render() {
 
 	float aspect = float(windowPtr->GetWidth()) / float(windowPtr->GetHeight());
 
@@ -252,43 +282,47 @@ void Scene0::Render(){
 
 	/// ImGUI render
 	/// Draw your scene here
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto object : gameobjects)
-	{
-		object->SetLightPos(viewMatrix_ * lightPos);
-		object->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
+//arifa was here
+	for (GameObject* go : ScenceModelList) {
+		go->SetLightPos(viewMatrix_ * lightPos);
+		go->Render(projectionMatrix_, viewMatrix_, trackball->GetMatrix3());
 	}
-  
+
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    SDL_GL_SwapWindow(windowPtr->getSDLWindow());
+	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 
 }
 void Scene0::ObjectSelection()
 {
 	int MouseXPos, MouseYPos;
 	SDL_GetMouseState(&MouseXPos, &MouseYPos);
+
 	Vec3 Ray_Origin;
 	Vec3 Ray_Direction;
 	ScreenPosToWorldRay(MouseXPos, MouseYPos, windowPtr->GetWidth(), windowPtr->GetHeight(),
 		viewMatrix, projectionMatrix, Ray_Origin, Ray_Direction);
-	for (auto objects : gameobjects)
+	for (auto objects : ScenceModelList)
 	{
 		float intersection_distance;
 
 		if(objects->CheckCollisonSelection(Ray_Origin, Ray_Direction, intersection_distance))
 		{
 			objects->ObjectSelected = true;
-		}else
+		}
+		else
 		{
 			objects->ObjectSelected = false;
 		}
 	}
 }
-void Scene0::HandleEvents(const SDL_Event& SDLEvent){
+void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
 
-	for (auto object : gameobjects)
+
+	//arifa was here
+	for (auto object : ScenceModelList)
 	{
 		object->HandleEvents(SDLEvent);
 	}
@@ -296,6 +330,11 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent){
 	{
 		ObjectSelection();
 		printf("Object Selected");
+	}
+
+
+	for (GameObject* go : ScenceModelList) {
+		go->HandleEvents(SDLEvent);
 	}
 }
 
@@ -307,7 +346,12 @@ void Scene0::placeObjects(char*object_)
 
 	Vec3 ObjectLoc = getObjectLocation(MouseXPos, MouseYPos);
 
-	gameobjects.push_back(new GameObject(object_, ObjectLoc));
+	//arifa was here
+	ScenceModelList.push_back(new GameObject(object_, ObjectLoc));
+
+	for (int i = ScenceModelList.size(); i <= ScenceModelList.size() - 1; --i) {
+		ScenceModelList[i]->ObjectSelected = false;
+	}
 }
 Vec3 Scene0::getObjectLocation(float mouseX, float mouseY)
 {
@@ -366,7 +410,7 @@ void Scene0::processMouseInput(const SDL_Event &SDLEvent)
 	int _xPos, _yPos;
 	if (SDLEvent.type == SDL_MOUSEMOTION && SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		
+
 		SDL_GetMouseState(&_xPos, &_yPos);
 
 		//camera mouse movement

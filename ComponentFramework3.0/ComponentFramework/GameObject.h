@@ -31,16 +31,94 @@ namespace GAME {
 		void MakeSelectBox();
 		Matrix4 GetCenter();
 
+		void SetLightPos(const Vec3&);
+
+
+		//ModelName list  
+		GameObject(std::string filePath_);
 
 
 		void SetLightPos(const Vec3&);
 		bool CheckCollisonSelection(Vec3& ray_origin_, Vec3& ray_end_, float intersection_distance_);
-		//bool CheckCollisonSelection(int moseX_, int mouseY_, int vp_w, int vp_h, const Matrix4& modelViewMatrix, const Matrix4& projectionMatrix);
 		bool ObjectSelected;
 		void UpDateObject();
-		
+
+
+		//gets pos (arifa)
+		inline Vec3 GetPos()
+		{
+
+			return position;
+
+		}
+
+		//(arifa)
+		inline void SetPos(Vec3 pos_)
+		{
+			position = pos_;
+			UpDateObject();
+		}
+
+
+		//gets angle (arifa)
+		inline float Getangle()
+		{
+			return angle;
+
+		}
+		//(arifa)
+		inline void Setangle(float angle_)
+		{
+			angle = angle_;
+			UpDateObject();
+		}
+
+		//(arifa)
+		inline Vec3 GetScale()
+		{
+			return scale;
+
+		}
+
+		//(arifa)
+		inline void SetScale(Vec3 Scale_)
+		{
+			scale = Scale_;
+			UpDateObject();
+		}
+
+
+		//(arifa)
+		inline Vec3 GetRotateAxis()
+		{
+			return rotateAxis;
+
+		}
+
+		//(arifa)
+		inline void SetRotateAxis(Vec3 RotateAxis_)
+		{
+			rotateAxis = RotateAxis_;
+			UpDateObject();
+		}
+
+		//(arifa)
+		inline Vec3 GetrotatePosition()
+		{
+			return rotatePosition;
+
+		}
+
+		//(arifa)
+		inline void SetrotatePosition(Vec3 rotatePosition_)
+		{
+			rotatePosition = rotatePosition_;
+			UpDateObject();
+		}
+
+
 	private:
-		
+
 		GAME::Shader *shader;
 		GLuint vbo;
 		GLuint vao;
@@ -56,8 +134,13 @@ namespace GAME {
 		Vec3 maxX;
 		std::vector<Vec3> SelectBox;
 		Vec3 lightPos;
-		char* object;
-		//Vec3 position;
+
+
+
+
+
+		//char* object;
+		Vec3 position;
 		Vec3 rotatePosition;
 		float angle;
 		Vec3 rotateAxis;

@@ -6,13 +6,15 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "vector"
+#include "FileManager.h"
+#include "JSONFile.h"
 
 namespace GAME {
 	/// Forward casting
 	class Trackball;
 	class Model0;
 
-	class Scene0 : public Scene  {
+	class Scene0 : public Scene {
 	protected:
 		Matrix4 projectionMatrix_;
 	public:
@@ -26,7 +28,7 @@ namespace GAME {
 		Scene0& operator=(const Scene0 &) = delete;
 		Scene0& operator=(Scene0 &&) = delete;
 
-		virtual bool OnCreate() ;
+		virtual bool OnCreate();
 		virtual void OnDestroy();
 		virtual void Update(const float deltaTime);
 		virtual void Render();
@@ -34,14 +36,22 @@ namespace GAME {
 		virtual void OnResize(const int, const int);
 		virtual void processInput(const SDL_Event &SDLEvent, float deltaTime);
 		virtual void processMouseInput(const SDL_Event &SDLEvent);
-		
+
+
+
+		//arifa was here
+		GameObject* gameobject;
+		std::vector<GameObject*> ScenceModelList;
+		std::map<std::string, std::vector<GameObject*>> myOBJs;
+		JSONFile jsonFile;
+
+
+
 	private:
 		void placeObjects(char*object_);
 		Vec3 lightPos;
 		Model0 *model0;
 		Trackball *trackball;
-		//GameObject* gameobject;
-		std::vector<GameObject*> gameobjects;
 		Camera* sceneCamera;
 		bool firstMouse;
 		int lastX, lastY;
