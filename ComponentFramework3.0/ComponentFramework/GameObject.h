@@ -4,6 +4,9 @@
 #include "Vector.h"
 #include "Model.h"
 #include "shader.h"
+#include "MMath.h"
+#include "VMath.h"
+using namespace MATH;
 
 namespace GAME {
 
@@ -34,7 +37,9 @@ namespace GAME {
 		//ModelName list  
 		GameObject(std::string filePath_);
 
-		bool CheckCollisonSelection(int moseX_, int mouseY_);
+
+		void SetLightPos(const Vec3&);
+		bool CheckCollisonSelection(Vec3& ray_origin_, Vec3& ray_end_, float intersection_distance_);
 		bool ObjectSelected;
 		void UpDateObject();
 

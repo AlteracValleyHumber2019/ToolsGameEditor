@@ -185,6 +185,9 @@
     <ClInclude Include="JSONFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestPicker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="phongFrag.glsl">

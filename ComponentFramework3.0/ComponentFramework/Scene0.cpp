@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <sstream>
+#include "TestPicker.h"
 
 using namespace GAME;
 using namespace MATH;
@@ -299,10 +300,15 @@ void Scene0::ObjectSelection()
 	int MouseXPos, MouseYPos;
 	SDL_GetMouseState(&MouseXPos, &MouseYPos);
 
-	//arifa was here
+	Vec3 Ray_Origin;
+	Vec3 Ray_Direction;
+	ScreenPosToWorldRay(MouseXPos, MouseYPos, windowPtr->GetWidth(), windowPtr->GetHeight(),
+		viewMatrix, projectionMatrix, Ray_Origin, Ray_Direction);
 	for (auto objects : ScenceModelList)
 	{
-		if (objects->CheckCollisonSelection(MouseXPos, MouseYPos))
+		float intersection_distance;
+
+		if(objects->CheckCollisonSelection(Ray_Origin, Ray_Direction, intersection_distance))
 		{
 			objects->ObjectSelected = true;
 		}

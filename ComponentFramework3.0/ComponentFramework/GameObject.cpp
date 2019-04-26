@@ -4,6 +4,7 @@
 #include "JSONFile.h"
 #include <stdio.h>
 #include <iostream>
+#include "TestPicker.h"
 using namespace GAME;
 
 GameObject::GameObject(char*object_) :shader(nullptr) {
@@ -295,10 +296,13 @@ void GameObject::SetLightPos(const Vec3& lightPos_) {
 	lightPos = lightPos_;
 }
 
-bool GameObject::CheckCollisonSelection(int moseX_, int mouseY_)
+//Supplies Gameobjects bounds mins, max, and model matrix (held internally) to Ray Collision boolean
+bool GameObject::CheckCollisonSelection(Vec3& ray_origin_, Vec3& ray_end_, float intersection_distance_)
 {
-	//if(moseX_ < SelectBox[0].x && )
-	return true;
+	if (TestRayOBBIntersection(ray_end_, ray_end_, SelectBox[0], SelectBox[4], modelMatrix, intersection_distance_)) {
+		return true;
+	}
+	return false;
 }
 void GameObject::Render(const Matrix4& projectionMatrix, const Matrix4& viewMatrix, const Matrix3& normalMatrix) const
 {
