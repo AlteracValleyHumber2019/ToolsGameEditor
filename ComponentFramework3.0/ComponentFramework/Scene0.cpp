@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <fstream>
 #include <sstream>
-#include "TestPicker.h"
 
 using namespace GAME;
 using namespace MATH;
@@ -42,7 +41,7 @@ bool Scene0::OnCreate() {
 
 	//arifa (rescent change need it to add to the list game objects in json)
 	ScenceModelList.push_back(new GameObject("chair.obj", Vec3(0, 0, 0)));
-	ScenceModelList.push_back(new GameObject("cube.obj", Vec3(0, 5, 0)));
+	ScenceModelList.push_back(new GameObject("cube.obj", Vec3(0, 10, 0)));
 
 
 	sceneCamera = new Camera(Vec3(0, 0, 5));
@@ -51,7 +50,7 @@ bool Scene0::OnCreate() {
 	lastY = windowPtr->GetHeight() / 2;
 
 	myOBJs[""].push_back(gameobject);
-
+	SelectionTool = new TestPicker();
 	return true;
 }
 
@@ -84,6 +83,10 @@ void Scene0::OnDestroy() {
 	//Clean Up ImGui
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
+
+	//Cleanup Selection Tool
+	if (SelectionTool) delete SelectionTool;
+	SelectionTool = nullptr;
 }
 
 void Scene0::Update(const float deltaTime) {
@@ -299,18 +302,22 @@ void Scene0::ObjectSelection()
 {
 	int MouseXPos, MouseYPos;
 	SDL_GetMouseState(&MouseXPos, &MouseYPos);
+	MouseYPos = -(MouseYPos - windowPtr->GetHeight());
 
 	Vec3 Ray_Origin;
 	Vec3 Ray_Direction;
-	ScreenPosToWorldRay(MouseXPos, MouseYPos, windowPtr->GetWidth(), windowPtr->GetHeight(),
+	SelectionTool->ScreenPosToWorldRay(MouseXPos, MouseYPos, windowPtr->GetWidth(), windowPtr->GetHeight(),
 		viewMatrix, projectionMatrix, Ray_Origin, Ray_Direction);
+	std::cout << Ray_Origin.x << " " << Ray_Origin.y << " " << Ray_Origin.z << std::endl;
 	for (auto objects : ScenceModelList)
 	{
 		float intersection_distance;
-
-		if(objects->CheckCollisonSelection(Ray_Origin, Ray_Direction, intersection_distance))
+		//CheckCollisonSelection(Ray_Origin, Ray_Direction, SelectionTool)
+		if(SelectionTool->TestRayOBBIntersection(Ray_Origin, Ray_Direction, objects->GetSelectBoxMin(),
+			objects->GetSelectBoxMax(), objects->GetModelMatrix(), intersection_distance))
 		{
 			objects->ObjectSelected = true;
+			printf(objects->GetMOdelName().c_str() + '\n');
 		}
 		else
 		{
@@ -329,7 +336,7 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent) {
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		ObjectSelection();
-		printf("Object Selected");
+		printf("Select Attempt \n");
 	}
 
 

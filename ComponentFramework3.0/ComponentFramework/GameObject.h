@@ -6,6 +6,7 @@
 #include "shader.h"
 #include "MMath.h"
 #include "VMath.h"
+#include "TestPicker.h"
 using namespace MATH;
 
 namespace GAME {
@@ -38,8 +39,7 @@ namespace GAME {
 		GameObject(std::string filePath_);
 
 
-		void SetLightPos(const Vec3&);
-		bool CheckCollisonSelection(Vec3& ray_origin_, Vec3& ray_end_, float intersection_distance_);
+		//bool CheckCollisonSelection(Vec3& ray_origin_, Vec3& ray_end_, TestPicker& Selection_Tool_);
 		bool ObjectSelected;
 		void UpDateObject();
 
@@ -116,6 +116,17 @@ namespace GAME {
 			UpDateObject();
 		}
 
+		inline Vec3 GetSelectBoxMin() {
+			return SelectBox[0];
+		}
+
+		inline Vec3 GetSelectBoxMax() {
+			return SelectBox[4];
+		}
+
+		inline Matrix4 GetModelMatrix() {
+			return modelMatrix;
+		}
 
 	private:
 

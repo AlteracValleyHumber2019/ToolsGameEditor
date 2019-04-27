@@ -8,6 +8,7 @@
 #include "vector"
 #include "FileManager.h"
 #include "JSONFile.h"
+#include "TestPicker.h"
 
 namespace GAME {
 	/// Forward casting
@@ -58,6 +59,7 @@ namespace GAME {
 		Matrix4 viewMatrix_;
 		Vec3 getObjectLocation(float mouseX, float mouseY);
 		void ObjectSelection();
+		TestPicker* SelectionTool;
 	};
 }
 #endif
